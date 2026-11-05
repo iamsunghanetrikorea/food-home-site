@@ -489,3 +489,21 @@ button { font: inherit; color: inherit; }
   .banner__t, .card__t { grid-row: 2; }
   .banner__s, .card__s { grid-row: 3; }
 }
+
+/* 고객센터 QR: 오른쪽에 두 줄을 차지, 스캔하거나 터치하면 ewhafood.co.kr */
+.cc__in { grid-template-columns: auto auto auto 1fr; }
+.cc__qr { grid-column: 4; grid-row: 1 / span 2; justify-self: start; margin-left: var(--space-lg, 24px); display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 14px 14px 12px; background: #fff; color: var(--color-ink, #1B1412); border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(27, 20, 18, 0.12); text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+.cc__qr img { display: block; width: 140px; height: 140px; image-rendering: pixelated; }
+.cc__qr-txt { display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; }
+.cc__qr-t { font-size: 13px; font-weight: 700; line-height: 1.2; }
+.cc__qr-u { font-size: 12px; font-weight: 400; opacity: .7; line-height: 1.2; }
+.cc__qr:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(27, 20, 18, 0.18); }
+.cc__qr:focus-visible { outline: 3px solid var(--color-focus-on-field, #1B1412); outline-offset: 3px; }
+@media (max-width: 60rem) {
+  .cc__in { grid-template-columns: minmax(0, 1fr); }
+  .cc__qr { grid-column: auto; grid-row: auto; justify-self: start; margin-left: 0; flex-direction: row; gap: 14px; padding: 12px 16px 12px 12px; }
+  .cc__qr img { width: 112px; height: 112px; }
+  .cc__qr-txt { align-items: flex-start; text-align: left; }
+}
