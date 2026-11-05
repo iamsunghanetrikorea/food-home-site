@@ -510,3 +510,7 @@ button { font: inherit; color: inherit; }
   .cc__qr-u { opacity: .8; }
   .cc__qr-txt { align-items: flex-start; text-align: left; }
 }
+/* 모바일·태블릿 세로: QR 박스 폭을 오시는길 버튼과 같게 */
+@media (max-width: 60rem) {
+  .cc__qr { justify-self: stretch; width: 100%; max-width: 420px; box-sizing: border-box; }
+}
