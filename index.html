@@ -13,6 +13,81 @@
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+<!-- 첫 방문 인트로 영상: 세션당 1회, 음소거 자동재생, 건너뛰기/소리 켜기 -->
+<style>
+  .intro { position: fixed; inset: 0; z-index: 9999; background: #FCFAF5; display: flex; align-items: center; justify-content: center;
+    transition: opacity .45s ease; }
+  .intro.is-out { opacity: 0; pointer-events: none; }
+  .intro video { width: 100%; height: 100%; object-fit: contain; background: #FCFAF5; }
+  .intro__bar { position: absolute; right: max(16px, 2.5vw); bottom: max(16px, 3vh); display: flex; gap: 10px; }
+  .intro__btn { font: 700 15px/1 "Noto Sans KR", sans-serif; color: #1B1412; background: rgba(254, 253, 251, .92); border: 1px solid rgba(27, 20, 18, .18);
+    border-radius: 999px; padding: 12px 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(27, 20, 18, .12); }
+  .intro__btn:hover, .intro__btn:focus-visible { background: #FFBE24; outline: none; }
+  .intro__btn--skip { background: #1B1412; color: #FEFDFB; border-color: #1B1412; }
+  .intro__btn--skip:hover { background: #C91114; border-color: #C91114; }
+  .intro__btn--skip:focus-visible { background: #1B1412; outline: 3px solid #FFBE24; outline-offset: 2px; }
+  @media (max-width: 600px) {
+    .intro__bar { left: 16px; right: 16px; bottom: 20px; justify-content: flex-end; flex-wrap: wrap; }
+    .intro__btn { font-size: 13px; padding: 10px 14px; }
+  }
+  .intro__play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none; font-size: 18px; padding: 18px 32px; }
+  .intro.is-blocked .intro__play { display: block; }
+  .intro__prog { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: #C91114; }
+  html.intro-lock, html.intro-lock body { overflow: hidden; }
+</style>
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="대전푸드조리제빵학원 소개 영상">
+  <video id="intro-video" muted playsinline preload="auto" poster="wp-content/uploads/intro/intro-poster.jpg">
+    <source src="wp-content/uploads/intro/intro-720p.mp4" type="video/mp4">
+  </video>
+  <button type="button" class="intro__btn intro__play" id="intro-play">▶ 영상 재생</button>
+  <div class="intro__bar">
+    <button type="button" class="intro__btn" id="intro-sound" aria-pressed="false">🔊 소리 켜기</button>
+    <button type="button" class="intro__btn intro__btn--skip" id="intro-skip">건너뛰기 ✕</button>
+  </div>
+  <div class="intro__prog" id="intro-prog" aria-hidden="true"></div>
+</div>
+<script>
+(function () {
+  var box = document.getElementById('intro');
+  var seen = false;
+  try { seen = sessionStorage.getItem('dj-intro-seen') === '1'; } catch (e) {}
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (seen || reduce) { box.parentNode.removeChild(box); return; }
+  try { sessionStorage.setItem('dj-intro-seen', '1'); } catch (e) {}
+  document.documentElement.classList.add('intro-lock');
+  var v = document.getElementById('intro-video');
+  var snd = document.getElementById('intro-sound');
+  var prog = document.getElementById('intro-prog');
+  var done = false;
+  function close() {
+    if (done) return; done = true;
+    box.classList.add('is-out');
+    document.documentElement.classList.remove('intro-lock');
+    try { v.pause(); } catch (e) {}
+    document.removeEventListener('keydown', onKey);
+    setTimeout(function () { if (box.parentNode) box.parentNode.removeChild(box); }, 500);
+  }
+  function onKey(e) { if (e.key === 'Escape') close(); }
+  function start() {
+    var p = v.play();
+    if (p && p.catch) p.catch(function () { box.classList.add('is-blocked'); });
+  }
+  document.getElementById('intro-skip').addEventListener('click', close);
+  document.getElementById('intro-play').addEventListener('click', function () { box.classList.remove('is-blocked'); start(); });
+  snd.addEventListener('click', function () {
+    v.muted = !v.muted;
+    snd.setAttribute('aria-pressed', String(!v.muted));
+    snd.textContent = v.muted ? '🔊 소리 켜기' : '🔇 소리 끄기';
+    if (v.paused) start();
+  });
+  v.addEventListener('timeupdate', function () { if (v.duration) prog.style.width = (v.currentTime / v.duration * 100) + '%'; });
+  v.addEventListener('ended', close);
+  v.addEventListener('error', close, true);
+  document.addEventListener('keydown', onKey);
+  start();
+  document.getElementById('intro-skip').focus({ preventScroll: true });
+})();
+</script>
 <a class="skip" href="#content">콘텐츠로 건너뛰기</a>
 <header class="hd">
   <div class="hd__in">
