@@ -1,0 +1,61 @@
+/* Board post (detail) pages. */
+@import url("./sub.css");
+
+.post { display: grid; gap: var(--space-xl); padding: var(--space-2xl); background: var(--color-white); box-shadow: var(--shadow-card); }
+.post__head { display: grid; gap: var(--space-sm); padding-bottom: var(--space-lg); border-bottom: 2px solid var(--color-ink); }
+.post__title { font-size: var(--text-2xl); font-weight: 900; line-height: 1.35; letter-spacing: -0.02em; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+.post__meta { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-lg); margin: 0; font-size: var(--text-sm); color: var(--color-ink-2); }
+.post__meta div { display: flex; gap: var(--space-2xs); }
+.post__meta dt { color: var(--color-muted); }
+.post__meta dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+.post__body { font-size: var(--text-md); line-height: 1.8; overflow-wrap: anywhere; word-break: keep-all; }
+.post__body p { margin: 0; }
+.post__body p + p { margin-top: var(--space-2xs); }
+.post__body img { display: block; width: auto; max-width: 100%; height: auto; margin: var(--space-sm) auto; border-radius: var(--radius-card); }
+.post__body a { color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.2em; }
+.post__body a:hover { color: var(--color-accent); }
+.post__body table { width: 100%; border-collapse: collapse; }
+.post__body td, .post__body th { padding: var(--space-xs); border: 1px solid var(--color-rule); }
+.post__empty { color: var(--color-muted); }
+
+/* gallery posts: photos in a tidy grid */
+.post--gallery .post__body { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); }
+.post--gallery .post__body > :not(p):not(img), .post--gallery .post__body > p:not(:has(img)) { grid-column: 1 / -1; }
+.post--gallery .post__body p:has(img) { display: contents; }
+.post--gallery .post__body img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; margin: 0; }
+.post--gallery .post__body br { display: none; }
+
+.post__foot { display: flex; justify-content: center; gap: var(--space-sm); padding-top: var(--space-lg); border-top: 1px solid var(--color-rule); }
+.post__foot .btn--line { background: transparent; color: var(--color-ink); border-color: var(--color-ink); }
+.post__foot .btn--line:hover { background: var(--color-ink); color: var(--color-white); }
+.post__src { margin-top: calc(-1 * var(--space-md)); font-size: var(--text-xs); color: var(--color-muted); text-align: center; }
+.post__src a { text-decoration: underline; }
+
+@media (max-width: 60rem) {
+  .post { padding: var(--space-lg) var(--space-md); gap: var(--space-lg); }
+  .post--gallery .post__body { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
+}
+@media (max-width: 40rem) {
+  .post { padding: var(--space-md); gap: var(--space-md); }
+  .post__head { gap: var(--space-xs); padding-bottom: var(--space-sm); }
+  .post__title { font-size: var(--text-xl); }
+  .post__meta { gap: 0 var(--space-md); font-size: var(--text-xs); }
+  .post__body { font-size: var(--text-sm); line-height: 1.75; }
+  .post__foot { padding-top: var(--space-md); }
+  .post__foot .btn { flex: 1 1 0; justify-content: center; }
+  .post__src { margin-top: calc(-1 * var(--space-xs)); }
+}
+
+/* v2: gallery text above, photos in a grid; keep everything inside the card */
+.post { grid-template-columns: minmax(0, 1fr); }
+.post > * { min-width: 0; }
+.post--gallery .post__body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+.post__photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); }
+.post__photos a { display: block; aspect-ratio: 1; overflow: hidden; border-radius: var(--radius-card); background: var(--color-paper-2); }
+.post__photos img { width: 100%; height: 100%; margin: 0 !important; object-fit: cover; border-radius: 0; }
+.post__photos a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.ph p.ph__title { font-size: clamp(2.25rem, 3vw + 1rem, 3.75rem); font-weight: 900; line-height: 1.15; letter-spacing: -0.03em; color: var(--color-ink); }
+.post__foot .btn { white-space: nowrap; }
+@media (max-width: 60rem) { .post__photos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); } }
+@media (max-width: 40rem) { .ph p.ph__title { font-size: 1.875rem; } .post__foot .btn { min-width: 0; padding: 0 var(--space-sm); } }
