@@ -15,7 +15,8 @@
 <body>
 <!-- 첫 방문 인트로 영상: 세션당 1회, 음소거 자동재생, 건너뛰기/소리 켜기 -->
 <style>
-  .intro { position: fixed; inset: 0; z-index: 9999; background: #FCFAF5; display: flex; align-items: center; justify-content: center;
+  .intro { display: none; }
+  html.js .intro { position: fixed; inset: 0; z-index: 9999; background: #FCFAF5; display: flex; align-items: center; justify-content: center;
     transition: opacity .45s ease; }
   .intro.is-out { opacity: 0; pointer-events: none; }
   .intro video { width: 100%; height: 100%; object-fit: contain; background: #FCFAF5; }
@@ -36,9 +37,7 @@
   html.intro-lock, html.intro-lock body { overflow: hidden; }
 </style>
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="대전푸드조리제빵학원 소개 영상">
-  <video id="intro-video" muted playsinline preload="auto" poster="wp-content/uploads/intro/intro-poster.jpg">
-    <source src="wp-content/uploads/intro/intro-720p.mp4" type="video/mp4">
-  </video>
+  <video id="intro-video" muted playsinline preload="none"></video>
   <button type="button" class="intro__btn intro__play" id="intro-play">▶ 영상 재생</button>
   <div class="intro__bar">
     <button type="button" class="intro__btn" id="intro-sound" aria-pressed="false">🔊 소리 켜기</button>
@@ -56,6 +55,12 @@
   try { sessionStorage.setItem('dj-intro-seen', '1'); } catch (e) {}
   document.documentElement.classList.add('intro-lock');
   var v = document.getElementById('intro-video');
+  // 세로로 긴 화면(휴대폰 세로 등)은 9:16 영상, 그 외는 16:9 영상
+  var tall = window.matchMedia && window.matchMedia('(max-aspect-ratio: 3/4)').matches;
+  var base = 'wp-content/uploads/intro/';
+  v.poster = base + (tall ? 'intro-vertical-poster.jpg' : 'intro-poster.jpg');
+  v.src = base + (tall ? 'intro-vertical-720p.mp4' : 'intro-720p.mp4');
+  v.preload = 'auto';
   var snd = document.getElementById('intro-sound');
   var prog = document.getElementById('intro-prog');
   var done = false;
@@ -82,7 +87,7 @@
   });
   v.addEventListener('timeupdate', function () { if (v.duration) prog.style.width = (v.currentTime / v.duration * 100) + '%'; });
   v.addEventListener('ended', close);
-  v.addEventListener('error', close, true);
+  v.addEventListener('error', close);
   document.addEventListener('keydown', onKey);
   start();
   document.getElementById('intro-skip').focus({ preventScroll: true });
