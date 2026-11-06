@@ -93,7 +93,7 @@
 
     const memo = form.memo.value.trim();
     const text = [
-      '[대전푸드조리제빵학원 카카오톡 상담 신청]',
+      '[이화푸드조리제빵학원 카카오톡 상담 신청]',
       `희망 과정: ${list.map((s) => `${s.subject} (${s.course})`).join(', ')}`,
       `이름: ${name}`,
       `연락처: ${form.tel1.value}-${t2}-${t3}`,
