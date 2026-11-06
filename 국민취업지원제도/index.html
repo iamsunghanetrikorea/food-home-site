@@ -10,6 +10,102 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
 <link rel="stylesheet" href="../layout2/sub.css">
+<style>
+.nb.page > div { padding: 0; background: transparent; box-shadow: none; }
+.nb__in { display: grid; gap: var(--space-xl); }
+.nb__intro, .nb__sec { padding: var(--space-2xl); background: var(--color-white); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+.nb__intro { background: var(--color-ink); color: var(--color-white); }
+.nb__eyebrow { color: var(--color-field); font-weight: 700; font-size: var(--text-sm); letter-spacing: .08em; }
+.nb__title { margin-top: var(--space-xs); font-size: clamp(32px, 6vw, 56px); font-weight: 900; line-height: 1.15; }
+.nb__lead { max-width: 60ch; margin-top: var(--space-md); font-size: var(--text-lg); line-height: 1.7; }
+.nb__lead mark { padding: 0 .2em; background: color-mix(in oklab, var(--color-field) 35%, transparent); color: inherit; font-weight: 700; }
+.nb__h { font-size: var(--text-2xl); font-weight: 900; line-height: 1.3; }
+.nb__sub { margin-top: var(--space-2xs); color: var(--color-ink-2); }
+.nb__excl { display: grid; gap: var(--space-xs); margin: var(--space-lg) 0 0; padding: var(--space-lg); list-style: none; border: 1px solid var(--color-rule); border-radius: var(--radius-card); }
+.nb__excl li { position: relative; padding-left: 1.1em; line-height: 1.6; }
+.nb__excl li::before { content: ""; position: absolute; left: 0; top: .7em; width: 6px; height: 6px; border-radius: 50%; background: var(--color-field); }
+.nb__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin: var(--space-lg) 0 0; padding: 0; list-style: none; }
+.nb__stats li { display: grid; gap: var(--space-sm); padding: var(--space-lg); border-radius: var(--radius-card); background: var(--color-ink); color: var(--color-white); text-align: center; }
+.nb__stat-k { padding-bottom: var(--space-sm); border-bottom: 1px solid rgba(255,255,255,.25); font-weight: 700; }
+.nb__stat-v { color: var(--color-field); font-size: clamp(22px, 3vw, 30px); font-weight: 900; line-height: 1.2; }
+.nb__stat-v small { color: var(--color-white); font-size: var(--text-sm); font-weight: 700; }
+.nb__cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+.nb__card { display: grid; align-content: start; gap: var(--space-sm); padding: var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-card); background: var(--color-paper-2); }
+.nb__card--wide { grid-column: 1 / -1; }
+.nb__card h3 { font-size: var(--text-sm); font-weight: 700; color: var(--color-ink-2); }
+.nb__strong { font-size: var(--text-xl); font-weight: 900; line-height: 1.35; }
+.nb__card ul { list-style: disc; display: grid; gap: var(--space-2xs); margin: 0; padding-left: 1.1em; line-height: 1.6; }
+.nb__card strong { font-weight: 700; }
+.nb__note { color: var(--color-muted); font-size: var(--text-sm); line-height: 1.6; }
+.nb__checks { display: grid; gap: var(--space-xs); margin: var(--space-md) 0 0; padding: 0; list-style: none; }
+.nb__checks li { display: flex; gap: var(--space-xs); line-height: 1.6; }
+.nb__ck { flex-shrink: 0; margin-top: .2em; color: var(--color-accent, var(--color-field)); }
+.nb__grps { display: grid; gap: var(--space-sm); margin: var(--space-lg) 0 0; padding: 0; list-style: none; }
+.nb__grp { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--space-md); align-items: center; padding: var(--space-md) var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-card); }
+.nb__tags { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
+.nb__tags span { padding: 4px 10px; border-radius: var(--radius-pill); background: var(--color-paper-2); font-size: var(--text-sm); }
+.nb__amt { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); margin: 0; }
+.nb__amt div { display: grid; gap: 2px; }
+.nb__amt dt { color: var(--color-muted); font-size: var(--text-xs, 12px); }
+.nb__amt dd { margin: 0; font-size: var(--text-sm); }
+.nb__amt b { font-size: var(--text-lg); font-weight: 900; }
+.nb__steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-sm); margin: var(--space-lg) 0 0; padding: 0; list-style: none; counter-reset: none; }
+.nb__steps li { position: relative; display: grid; justify-items: center; align-content: start; gap: var(--space-xs); padding: var(--space-lg) var(--space-sm); border-radius: var(--radius-card); background: var(--color-paper-2); text-align: center; font-weight: 700; line-height: 1.4; }
+.nb__steps b { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--color-field); color: var(--color-field-ink); }
+.nb__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm); }
+.nb__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 var(--space-xl); border: 1px solid var(--color-field); border-radius: var(--radius-pill); background: var(--color-field); color: var(--color-field-ink); font-weight: 700; text-decoration: none; }
+.nb__btn--line { background: var(--color-white); border-color: var(--color-ink); color: var(--color-ink); }
+.nb__btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+@media (max-width: 60rem) {
+  .nb__steps { grid-template-columns: minmax(0, 1fr); }
+  .nb__steps li { grid-template-columns: auto 1fr; justify-items: start; align-items: center; padding: var(--space-sm) var(--space-md); text-align: left; }
+  .nb__grp { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 40rem) {
+  .nb__in { gap: var(--space-md); }
+  .nb__intro, .nb__sec { padding: var(--space-lg) var(--space-md); }
+  .nb__lead { font-size: var(--text-md, 16px); }
+  .nb__h { font-size: var(--text-xl); }
+  .nb__stats { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
+  .nb__stats li { grid-template-columns: auto 1fr; align-items: center; text-align: right; padding: var(--space-md); }
+  .nb__stat-k { padding: 0; border: 0; text-align: left; }
+  .nb__stat-v { font-size: 22px; }
+  .nb__cards { grid-template-columns: minmax(0, 1fr); }
+  .nb__card { padding: var(--space-md); }
+  .nb__strong { font-size: var(--text-lg); }
+  .nb__grp { padding: var(--space-md); }
+  .nb__cta { flex-direction: column; }
+  .nb__btn { width: 100%; }
+}
+</style>
+<style>
+.nb__types { display: grid; gap: var(--space-lg); margin-top: var(--space-lg); }
+.nb__type h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-xs); font-size: var(--text-xl); font-weight: 900; }
+.nb__type h3 small { color: var(--color-ink-2); font-size: var(--text-sm); font-weight: 700; }
+.nb__tracks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); margin: var(--space-sm) 0 0; padding: 0; list-style: none; }
+.nb__track { padding: var(--space-md); border: 1px solid var(--color-rule); border-radius: var(--radius-card); }
+.nb__track h4 { margin-bottom: var(--space-xs); padding-bottom: var(--space-xs); border-bottom: 2px solid var(--color-field); font-weight: 900; }
+.nb__track dl { display: grid; gap: 6px; margin: 0; }
+.nb__track dl div { display: grid; grid-template-columns: 4.5em 1fr; gap: var(--space-xs); font-size: var(--text-sm); line-height: 1.5; }
+.nb__track dt { color: var(--color-muted); }
+.nb__track dd { margin: 0; font-weight: 700; }
+.nb__give { margin-top: var(--space-sm); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-card); background: var(--color-ink); color: var(--color-white); font-weight: 700; }
+.nb__give b { color: var(--color-field); }
+.nb__notes { display: grid; gap: 4px; margin: var(--space-sm) 0 0; padding: 0; list-style: none; color: var(--color-muted); font-size: var(--text-sm); line-height: 1.6; }
+.nb__groups { columns: 3 220px; column-gap: var(--space-lg); margin: var(--space-md) 0 0; padding: var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-card); list-style: none; counter-reset: g; }
+.nb__groups li { counter-increment: g; break-inside: avoid; padding: 4px 0 4px 2.2em; position: relative; font-size: var(--text-sm); line-height: 1.5; }
+.nb__groups li::before { content: counter(g); position: absolute; left: 0; top: 4px; min-width: 1.7em; color: var(--color-ink-2); font-weight: 700; text-align: right; }
+.nb__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+.nb__steps small { display: block; margin-top: 2px; color: var(--color-ink-2); font-size: var(--text-xs, 12px); font-weight: 400; }
+@media (max-width: 60rem) {
+  .nb__tracks, .nb__cols { grid-template-columns: minmax(0, 1fr); }
+  .nb__steps li span { display: block; }
+}
+@media (max-width: 40rem) {
+  .nb__groups { padding: var(--space-md); }
+  .nb__give { font-size: var(--text-sm); }
+}
+</style>
 </head>
 <body class="sub sub--prose">
 <a class="skip" href="#content">콘텐츠로 건너뛰기</a>
@@ -56,9 +152,119 @@
   </section>
 
   <div class="pbody">
-    <article class="wrap page page--prose">
-      <div class="prose"><div class="wp-block-uagb-image uagb-block-d527254d wp-block-uagb-image--layout-default wp-block-uagb-image--effect-static wp-block-uagb-image--align-none"><figure class="wp-block-uagb-image__figure"><img decoding="async" src="../wp-content/uploads/2026/07/sub1.jpg" alt="" class="uag-image-404" title="" loading="lazy" role="img" /></figure></div>
-</div>
+    <article class="wrap page nb">
+      <div class="nb__in">
+        <section class="nb__intro" aria-labelledby="nb-h">
+          <p class="nb__eyebrow">취업지원 안내</p>
+          <h2 id="nb-h" class="nb__title">국민취업지원제도</h2>
+          <p class="nb__lead">국민취업지원제도 참여 요건을 갖추신 분은 <mark>취업지원서비스</mark>를 제공받을 수 있고, <mark>생계를 위한 최소한의 소득</mark>도 지원받을 수 있습니다.</p>
+        </section>
+
+        <section class="nb__sec" aria-labelledby="nb-who">
+          <h2 id="nb-who" class="nb__h">수급자격 및 지원 내용</h2>
+          <div class="nb__types">
+            <div class="nb__type">
+              <h3>Ⅰ유형 <small>구직촉진수당 + 취업지원서비스</small></h3>
+              <ul class="nb__tracks"><li class="nb__track"><h4>요건심사형</h4><dl><div><dt>나이</dt><dd>15~69세</dd></div><div><dt>소득</dt><dd>중위소득 60% 이하</dd></div><div><dt>재산</dt><dd>가구원 합산 4억 원 이하<br>(15~34세 청년 5억 원 이하)</dd></div><div><dt>취업경험</dt><dd>최근 2년 내 100일 또는 800시간 이상</dd></div></dl></li><li class="nb__track"><h4>선발형(비경제활동)</h4><dl><div><dt>나이</dt><dd>15~69세</dd></div><div><dt>소득</dt><dd>중위소득 60% 이하</dd></div><div><dt>재산</dt><dd>가구원 합산 4억 원 이하</dd></div><div><dt>취업경험</dt><dd>100일 또는 800시간 미만</dd></div></dl></li><li class="nb__track"><h4>선발형(청년특례)</h4><dl><div><dt>나이</dt><dd>15~34세 *</dd></div><div><dt>소득</dt><dd>중위소득 120% 이하</dd></div><div><dt>재산</dt><dd>가구원 합산 5억 원 이하</dd></div><div><dt>취업경험</dt><dd>무관</dd></div></dl></li></ul>
+              <p class="nb__give">구직촉진수당 <b>월 60만 원 × 6개월</b> 및 취업지원서비스 제공</p>
+              <ul class="nb__notes">
+                <li>※ 부양가족(18세 이하, 70세 이상, 중증장애인) 수에 따라 구직촉진수당이 추가 지급될 수 있으니, 신청 시 가구원을 정확하게 입력해야 합니다.</li>
+                <li>※ 최근 2년 이내 100일 또는 800시간 이상 취업경험이 없거나, 청년 중 중위소득 60% 초과~120% 이하 가구는 예산 상황에 따라 Ⅰ유형으로 선발되지 않을 수 있습니다.</li>
+              </ul>
+            </div>
+            <div class="nb__type">
+              <h3>Ⅱ유형 <small>취업활동비용 + 취업지원서비스</small></h3>
+              <ul class="nb__tracks"><li class="nb__track"><h4>특정계층</h4><dl><div><dt>대상</dt><dd>아래 특정계층 목록 참조</dd></div><div><dt>소득·재산</dt><dd>무관</dd></div><div><dt>취업경험</dt><dd>무관</dd></div></dl></li><li class="nb__track"><h4>청년</h4><dl><div><dt>나이</dt><dd>15~34세 *</dd></div><div><dt>소득·재산</dt><dd>무관</dd></div><div><dt>취업경험</dt><dd>무관</dd></div></dl></li><li class="nb__track"><h4>중장년</h4><dl><div><dt>나이</dt><dd>35~69세</dd></div><div><dt>소득</dt><dd>중위소득 100% 이하</dd></div><div><dt>재산·경험</dt><dd>무관</dd></div></dl></li></ul>
+              <p class="nb__give">취업활동비용 및 취업지원서비스 제공</p>
+            </div>
+          </div>
+          <ul class="nb__notes">
+            <li>* 청년 연령은 병역의무 이행기간을 더해 최대 37세까지 인정합니다.</li>
+            <li>* 중위소득은 보건복지부가 고시하는 기준 중위소득입니다.</li>
+          </ul>
+        </section>
+
+        <section class="nb__sec" aria-labelledby="nb-grp">
+          <h2 id="nb-grp" class="nb__h">특정계층 (Ⅱ유형)</h2>
+          <ol class="nb__groups"><li>기초연금 수급자 등</li><li>생계급여 수급자(근로능력이 있는 자)</li><li>노숙인 등 비주택 거주자</li><li>북한이탈주민</li><li>여성가구주</li><li>결혼이민자</li><li>결혼이민자의 외국인 자녀</li><li>신용회복지원자 등</li><li>위기청소년 등</li><li>FTA(자유무역협정) 피해 실직자</li><li>건설일용직 근로자</li><li>국가유공자 가구원 중 취업지원 대상자</li><li>미혼모(부)·한부모·청소년부모</li><li>구직단념청년</li><li>산재로 장해를 입은 사람</li><li>고용위기지역 등 지정에 따른 실직자</li><li>「기업활력 제고를 위한 특별법」 시행 참여자</li><li>특별고용지원업종의 실직자</li><li>영세자영업자</li><li>소상공인 및 성실경영실패자</li><li>노무제공자 등</li><li>국민취업지원제도와 연계되는 직접일자리사업 참여자</li><li>가습기살균제 피해자</li></ol>
+        </section>
+
+        <section class="nb__sec" aria-labelledby="nb-no">
+          <h2 id="nb-no" class="nb__h">참여할 수 없는 대상</h2>
+          <div class="nb__cols">
+            <div class="nb__card">
+              <h3>Ⅰ유형</h3>
+              <ul>
+                <li>취업 중인 사람 (단, 주 30시간 미만 임금근로자, 월소득 250만 원 미만 사업소득자는 불완전 취업자로 참여 가능)</li>
+                <li>근로능력, 취업 및 구직의사가 없는 사람</li>
+                <li>생계급여 수급자</li>
+                <li>구직급여를 받는 중이거나 수급 종료 후 6개월이 지나지 않은 사람</li>
+                <li>재정지원 일자리사업에 참여 중이거나 종료 후 6개월이 지나지 않은 사람 (일부 사업은 종료 후 즉시 참여 가능)</li>
+                <li>국가·지자체의 구직활동 지원 수당을 받는 중이거나 수급 종료 후 6개월이 지나지 않은 사람</li>
+                <li>본인 월평균 소득이 1인 가구 기준 중위소득의 60%를 넘는 사람</li>
+                <li>상급학교 진학, 전문자격증 취득을 목적으로 학교에 재학 중이거나 학원 등에서 수강 중인 사람</li>
+              </ul>
+            </div>
+            <div class="nb__card">
+              <h3>Ⅱ유형</h3>
+              <ul>
+                <li>취업 중인 사람 (단, 주 30시간 미만 임금근로자, 월소득 250만 원 미만 사업소득자는 불완전 취업자로 참여 가능)</li>
+                <li>근로능력, 취업 및 구직의사가 없는 사람</li>
+                <li>구직급여 수급자 (수급 종료 후 참여 가능)</li>
+                <li>재정지원 일자리사업에 참여 중인 사람 (종료 후 참여 가능)</li>
+                <li>국가·지자체의 구직활동 지원 수당을 받는 중인 사람 (수급 종료 후 참여 가능)</li>
+                <li>상급학교 진학, 전문자격증 취득을 목적으로 학교에 재학 중이거나 학원 등에서 수강 중인 사람</li>
+              </ul>
+            </div>
+          </div>
+          <p class="nb__note" style="margin-top:var(--space-sm)">※ 학교에 재학 중인 경우 참여가 어려우나, 졸업예정자(최종 학년 마지막 학기)는 증빙 서류를 내고 참여할 수 있습니다.</p>
+        </section>
+
+        <section class="nb__sec" aria-labelledby="nb-step">
+          <h2 id="nb-step" class="nb__h">취업지원 신청 절차</h2>
+          <ol class="nb__steps">
+          <li><b>1</b><span>동영상 교육<small>제도 안내 동영상 1·2회차 필수 수강</small></span></li>
+          <li><b>2</b><span>구직 등록<small>고용24 가입 후 구직등록(필수)</small></span></li>
+          <li><b>3</b><span>취업지원 신청<small>신청서 작성·제출 (홈페이지 또는 고용센터)</small></span></li>
+          <li><b>4</b><span>접수·조사·결정<small>취업지원 신청서 접수 후 조사·결정</small></span></li>
+          <li><b>5</b><span>알림<small>수급자격 (불)인정 결과를 1개월 안에 서면 통지</small></span></li>
+          </ol>
+          <div class="nb__card" style="margin-top:var(--space-md)">
+            <h3>필수 제출 서류</h3>
+            <ul>
+              <li>취업지원 신청서 [별지 제1호 서식]</li>
+              <li>개인정보 및 고유식별정보 수집·이용·제공 동의서 (가구원 포함)</li>
+              <li>행정정보 공동이용 동의서</li>
+              <li>취업지원서비스 및 구직촉진수당 수급자격 조사·결정을 위한 확인서</li>
+            </ul>
+            <p class="nb__note">※ 온라인 신청 시 위 서류를 모두 작성해 제출하고, 방문 신청 시 양식을 출력·작성해 주소지 관할 고용센터에 제출합니다. 상황에 따라 추가 서류가 필요할 수 있습니다.</p>
+          </div>
+        </section>
+
+        <section class="nb__sec" aria-labelledby="nb-pay">
+          <h2 id="nb-pay" class="nb__h">구직촉진수당 (Ⅰ유형)</h2>
+          <p class="nb__sub">수급자격을 인정받은 사람이 개인별 취업활동계획(IAP)을 세우거나 구직활동 프로그램을 이행했을 때, 구직활동과 생활안정에 필요한 비용을 지원하는 수당입니다.</p>
+          <div class="nb__cards">
+            <div class="nb__card">
+              <h3>지급 금액</h3>
+              <p class="nb__strong">6개월 동안 매월 60만 원</p>
+              <p class="nb__note">※ 최대 1년까지 나눠 받도록 연장할 수 있으나 총 지급액은 같습니다.</p>
+            </div>
+            <div class="nb__card">
+              <h3>지급 요건</h3>
+              <ul>
+                <li>1회차: 취업활동계획 수립을 완료하면 지급</li>
+                <li>2회차부터: 계획에서 정한 구직활동을 모두 이행하고 이행보고서를 등록해야 지급</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <div class="nb__cta">
+          <a class="nb__btn" href="../%ec%b9%b4%ec%b9%b4%ec%98%a4%ed%86%a1%ec%83%81%eb%8b%b4/">수강 상담 신청하기</a>
+          <a class="nb__btn nb__btn--line" href="https://m.work24.go.kr/ua/z/z/1300/selectEmssRqutIntro.do" target="_blank" rel="noopener">고용24에서 자세히 보기·신청하기<span class="visually-hidden"> (새 창)</span></a>
+        </div>
+      </div>
     </article>
   </div>
 
