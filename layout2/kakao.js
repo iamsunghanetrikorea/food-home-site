@@ -79,26 +79,46 @@
     dlgStatus.textContent = '카카오톡 채팅창이 열렸다면 입력창에 붙여넣고 전송을 눌러 주세요.';
   });
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  // Check the form and build the consultation message; returns null (after flagging the field) if incomplete.
+  const buildMessage = (title) => {
     form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
     status.classList.remove('is-error'); status.textContent = '';
     const list = chosen();
     const name = form.elements.fullname.value.trim();
     const t2 = form.tel2.value, t3 = form.tel3.value;
-    if (!list.length) return fail(form.querySelector('.kk-cat[aria-pressed="true"]'), '상담받을 과목을 하나 이상 선택해 주세요.');
-    if (!name) return fail(form.elements.fullname, '이름을 입력해 주세요.');
-    if (t2.length < 3 || t3.length < 4) return fail(t2.length < 3 ? form.tel2 : form.tel3, '연락처를 끝까지 입력해 주세요.');
-    if (!form.agree.checked) return fail(form.agree, '상담 메시지 작성 동의에 체크해 주세요.');
+    if (!list.length) { fail(form.querySelector('.kk-cat[aria-pressed="true"]'), '상담받을 과목을 하나 이상 선택해 주세요.'); return null; }
+    if (!name) { fail(form.elements.fullname, '이름을 입력해 주세요.'); return null; }
+    if (t2.length < 3 || t3.length < 4) { fail(t2.length < 3 ? form.tel2 : form.tel3, '연락처를 끝까지 입력해 주세요.'); return null; }
+    if (!form.agree.checked) { fail(form.agree, '상담 메시지 작성 동의에 체크해 주세요.'); return null; }
 
     const memo = form.memo.value.trim();
-    const text = [
-      '[이화푸드조리제빵학원 카카오톡 상담 신청]',
+    return [
+      `[이화푸드조리제빵학원 ${title}]`,
       `희망 과정: ${list.map((s) => `${s.subject} (${s.course})`).join(', ')}`,
       `이름: ${name}`,
       `연락처: ${form.tel1.value}-${t2}-${t3}`,
       memo ? `문의 내용: ${memo}` : null,
     ].filter(Boolean).join('\n');
+  };
+
+  // 전화 문자: open the phone's messaging app addressed to the academy with the message filled in.
+  // iOS reads the body after "&", Android and others after "?".
+  const SMS_TO = '01030630362';
+  const smsBtn = document.getElementById('kk-sms');
+  if (smsBtn) smsBtn.addEventListener('click', () => {
+    const text = buildMessage('문자 상담 신청');
+    if (!text) return;
+    const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    window.location.href = `sms:${SMS_TO}${ios ? '&' : '?'}body=${encodeURIComponent(text)}`;
+    status.textContent = mobile
+      ? '문자 앱이 열렸다면 내용을 확인하고 전송을 눌러 주세요.'
+      : '문자 발송은 휴대폰에서 이용해 주세요. 010-3063-0362로 문자를 보내 주시면 상담해 드립니다.';
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = buildMessage('카카오톡 상담 신청');
+    if (!text) return;
 
     msgBox.value = text;
     dlgStatus.textContent = '';
