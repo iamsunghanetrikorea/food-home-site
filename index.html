@@ -62,8 +62,8 @@
   // 세로로 긴 화면(휴대폰 세로 등)은 9:16 영상, 그 외는 16:9 영상
   var tall = window.matchMedia && window.matchMedia('(max-aspect-ratio: 3/4)').matches;
   var base = 'wp-content/uploads/intro/';
-  v.poster = base + (tall ? 'intro-vertical-poster.jpg' : 'intro-poster.jpg');
-  v.src = base + (tall ? 'intro-vertical-720p.mp4' : 'intro-720p.mp4');
+  v.poster = base + (tall ? 'intro-vertical-poster.jpg' : 'intro-poster.jpg') + '?v=welcome1';
+  v.src = base + (tall ? 'intro-vertical-720p.mp4' : 'intro-720p.mp4') + '?v=welcome1';
   v.preload = 'auto';
   var snd = document.getElementById('intro-sound');
   var prog = document.getElementById('intro-prog');
