@@ -3,13 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>공지사항 | 이화푸드조리제빵학원</title>
-<meta name="description" content="공지사항, 이화푸드조리제빵학원">
+<title>요리보기 | 이화푸드조리제빵학원</title>
+<meta name="description" content="분야별 인기 요리 유튜브 채널 20선, 이화푸드조리제빵학원">
 <link rel="icon" href="../wp-content/uploads/2026/07/cropped-fav1-192x192.png?v=ewha1" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
 <link rel="stylesheet" href="../layout2/sub.css">
+<style>
+.yt.page > div { padding: var(--space-2xl); background: var(--color-white); box-shadow: var(--shadow-card); }
+.yt__lead { color: var(--color-ink-2); line-height: 1.6; }
+.yt__chips { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: var(--space-lg) 0 0; padding: 0; list-style: none; }
+.yt__chip { min-height: 44px; padding: 0 var(--space-md); border: 1px solid var(--color-rule); border-radius: var(--radius-pill); background: var(--color-white); font: inherit; font-weight: 700; cursor: pointer; }
+.yt__chip span { margin-left: 2px; color: var(--color-muted); font-weight: 400; font-size: var(--text-sm); }
+.yt__chip[aria-pressed="true"] { background: var(--color-field); border-color: var(--color-field); color: var(--color-field-ink); }
+.yt__chip[aria-pressed="true"] span { color: inherit; }
+.yt__chip:focus-visible, .yt__card:focus-visible, .yt__x:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.yt__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--space-md); margin: var(--space-lg) 0 0; padding: 0; list-style: none; }
+.yt__item[hidden] { display: none; }
+.yt__card { display: grid; grid-template-rows: auto auto 1fr auto; gap: var(--space-2xs); height: 100%; padding: var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-card); color: var(--color-ink); text-decoration: none; transition: border-color .15s, box-shadow .15s, transform .15s; }
+.yt__card:hover { border-color: #e62117; box-shadow: var(--shadow-card); transform: translateY(-2px); }
+.yt__tag { justify-self: start; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--color-paper-2); color: var(--color-ink-2); font-size: var(--text-xs, 12px); font-weight: 700; }
+.yt__name { margin-top: var(--space-xs); font-size: var(--text-lg); font-weight: 900; line-height: 1.35; }
+.yt__desc { color: var(--color-ink-2); font-size: var(--text-sm); line-height: 1.5; }
+.yt__play { display: inline-flex; align-items: center; gap: 6px; justify-self: start; margin-top: var(--space-sm); padding: 8px 14px; border-radius: var(--radius-pill); background: #e62117; color: #fff; font-size: var(--text-sm); font-weight: 700; }
+.yt__foot { margin-top: var(--space-lg); color: var(--color-muted); font-size: var(--text-sm); line-height: 1.6; }
+.yt__dlg { width: min(960px, calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 0; border-radius: 16px; background: #111; color: #fff; }
+.yt__dlg::backdrop { background: rgba(0,0,0,.75); }
+.yt__dlg-in { display: grid; gap: 12px; padding: 16px; }
+.yt__dlg-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.yt__dlg-h { font-size: var(--text-lg); font-weight: 900; }
+.yt__x { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; font-size: 18px; cursor: pointer; }
+.yt__frame { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: 8px; overflow: hidden; }
+.yt__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.yt__out { justify-self: end; color: #fff; font-size: var(--text-sm); text-decoration: underline; }
+@media (max-width: 40rem) {
+  .yt.page > div { padding: var(--space-lg) var(--space-md); }
+  .yt__chips { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * var(--space-md)); padding: 0 var(--space-md) 4px; scrollbar-width: none; }
+  .yt__chip { flex-shrink: 0; white-space: nowrap; }
+  .yt__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+  .yt__card { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto; column-gap: var(--space-sm); padding: var(--space-md); }
+  .yt__tag, .yt__name, .yt__desc { grid-column: 1; }
+  .yt__name { margin-top: 4px; font-size: var(--text-md, 16px); }
+  .yt__play { grid-column: 2; grid-row: 1 / span 3; align-self: center; margin: 0; padding: 10px; font-size: 0; gap: 0; }
+  .yt__play svg { width: 20px; height: 20px; }
+  .yt__dlg { width: 100%; max-width: 100%; margin: auto 0 0; border-radius: 16px 16px 0 0; }
+  .yt__dlg-in { padding: 12px; }
+}
+</style>
 </head>
 <body class="sub sub--board">
 <a class="skip" href="#content">콘텐츠로 건너뛰기</a>
@@ -21,7 +62,7 @@
         <li class="gnb__item"><a href="../%eb%8c%80%ec%a0%84%ed%91%b8%eb%93%9c%ec%a1%b0%eb%a6%ac%ec%a0%9c%eb%b9%b5%ed%95%99%ec%9b%90/" class="gnb__top">학원소개</a><ul class="gnb__sub"><li><a href="../%ec%9d%b8%ec%82%ac%eb%a7%90/">인사말</a></li><li><a href="../%ed%95%99%ec%9b%90%ec%86%8c%ea%b0%9c/">학원소개</a></li><li><a href="../%ec%98%a4%ec%8b%9c%eb%8a%94%ea%b8%b8/">오시는길</a></li></ul></li>
         <li class="gnb__item"><a href="../%ec%bb%a4%eb%a6%ac%ed%81%98%eb%9f%bc/" class="gnb__top">커리큘럼</a><ul class="gnb__sub"><li><a href="../%ea%b0%9c%ea%b0%95%ec%9d%bc%ec%a0%95/">개강일정표</a></li><li><a href="../%ec%a1%b0%eb%a6%ac%ea%b8%b0%eb%8a%a5%ec%82%ac%eb%b0%98/">조리기능사반</a></li><li><a href="../%ec%a0%9c%ea%b3%bc%ec%a0%9c%eb%b9%b5-%ea%b8%b0%eb%8a%a5%ec%82%ac%eb%b0%98/">제과,제빵 기능사반</a></li><li><a href="../%eb%96%a1%ec%a0%9c%ec%a1%b0%ea%b8%b0%eb%8a%a5%ec%82%ac/">떡제조기능사 자격증반</a></li><li><a href="../%ec%bb%a4%ed%94%bc%eb%b0%94%eb%a6%ac%ec%8a%a4%ed%83%80%ea%b3%bc%ec%a0%95/">커피바리스타과정</a></li><li><a href="../%ec%9b%b0%eb%b9%99%ec%bf%a0%ed%82%b9-%ed%99%88%eb%b2%a0%ec%9d%b4%ed%82%b9/">웰빙쿠킹/홈베이킹</a></li></ul></li>
         <li class="gnb__item"><a href="../%ec%8b%9c%ed%97%98%ec%a0%95%eb%b3%b4/" class="gnb__top">시험정보</a><ul class="gnb__sub"><li><a href="../%ec%9e%90%ea%b2%a9%ec%a6%9d%ec%a0%95%eb%b3%b4/">자격증정보</a></li><li><a href="../%ec%9e%90%ea%b2%a9%ec%a6%9d%ec%8b%9c%ed%97%98%ec%9d%bc%ec%a0%95/">자격증시험일정</a></li><li><a href="../%ea%b8%b0%ec%b6%9c%eb%ac%b8%ec%a0%9c/">기출문제</a></li></ul></li>
-        <li class="gnb__item"><a href="../%ec%bb%a4%eb%ae%a4%eb%8b%88%ed%8b%b0/" class="gnb__top">커뮤니티</a><ul class="gnb__sub"><li><a href="../%ec%b9%b4%ec%b9%b4%ec%98%a4%ed%86%a1%ec%83%81%eb%8b%b4/">카카오톡 상담</a></li><li><a href="../%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/">공지사항</a></li><li><a href="../%ec%b7%a8%ec%97%85%eb%b3%b4%eb%8f%84%ec%8b%a4/">취업보도실</a></li><li><a href="../%ed%8f%ac%ed%86%a0%ea%b0%a4%eb%9f%ac%eb%a6%ac/">포토갤러리</a></li></ul></li>
+        <li class="gnb__item"><a href="../%ec%bb%a4%eb%ae%a4%eb%8b%88%ed%8b%b0/" class="gnb__top">커뮤니티</a><ul class="gnb__sub"><li><a href="../%ec%b9%b4%ec%b9%b4%ec%98%a4%ed%86%a1%ec%83%81%eb%8b%b4/">카카오톡 상담</a></li><li><a href="../%ec%b7%a8%ec%97%85%eb%b3%b4%eb%8f%84%ec%8b%a4/">취업보도실</a></li><li><a href="../%ed%8f%ac%ed%86%a0%ea%b0%a4%eb%9f%ac%eb%a6%ac/">포토갤러리</a></li><li><a href="../%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/">요리보기</a></li></ul></li>
         <li class="gnb__item"><a href="../%ea%b5%ad%eb%b9%84%ec%a7%80%ec%9b%90/" class="gnb__top">국비지원</a><ul class="gnb__sub"><li><a href="../%ea%b7%bc%eb%a1%9c%ec%9e%90%ec%88%98%ea%b0%95%ec%a7%80%ec%9b%90%ea%b8%88%ed%9b%88%eb%a0%a8-%eb%b0%8f-%ea%b7%bc%eb%a1%9c%ec%9e%90%eb%8a%a5%eb%a0%a5%ea%b0%9c%eb%b0%9c/">근로자수강지원금훈련 및 근로자능력개발</a></li><li><a href="../%ea%b5%ad%eb%af%bc%ec%b7%a8%ec%97%85%ec%a7%80%ec%9b%90%ec%a0%9c%eb%8f%84/">국민취업지원제도</a></li><li><a href="../%ea%b5%ad%eb%b9%84%ec%a7%80%ec%9b%90/">국비지원</a></li></ul></li>
       </ul>
     </nav>
@@ -37,7 +78,7 @@
         <div class="allmenu__col"><h2><a href="../%eb%8c%80%ec%a0%84%ed%91%b8%eb%93%9c%ec%a1%b0%eb%a6%ac%ec%a0%9c%eb%b9%b5%ed%95%99%ec%9b%90/">학원소개</a></h2><ul><li><a href="../%ec%9d%b8%ec%82%ac%eb%a7%90/">인사말</a></li><li><a href="../%ed%95%99%ec%9b%90%ec%86%8c%ea%b0%9c/">학원소개</a></li><li><a href="../%ec%98%a4%ec%8b%9c%eb%8a%94%ea%b8%b8/">오시는길</a></li></ul></div>
         <div class="allmenu__col"><h2><a href="../%ec%bb%a4%eb%a6%ac%ed%81%98%eb%9f%bc/">커리큘럼</a></h2><ul><li><a href="../%ea%b0%9c%ea%b0%95%ec%9d%bc%ec%a0%95/">개강일정표</a></li><li><a href="../%ec%a1%b0%eb%a6%ac%ea%b8%b0%eb%8a%a5%ec%82%ac%eb%b0%98/">조리기능사반</a></li><li><a href="../%ec%a0%9c%ea%b3%bc%ec%a0%9c%eb%b9%b5-%ea%b8%b0%eb%8a%a5%ec%82%ac%eb%b0%98/">제과,제빵 기능사반</a></li><li><a href="../%eb%96%a1%ec%a0%9c%ec%a1%b0%ea%b8%b0%eb%8a%a5%ec%82%ac/">떡제조기능사 자격증반</a></li><li><a href="../%ec%bb%a4%ed%94%bc%eb%b0%94%eb%a6%ac%ec%8a%a4%ed%83%80%ea%b3%bc%ec%a0%95/">커피바리스타과정</a></li><li><a href="../%ec%9b%b0%eb%b9%99%ec%bf%a0%ed%82%b9-%ed%99%88%eb%b2%a0%ec%9d%b4%ed%82%b9/">웰빙쿠킹/홈베이킹</a></li></ul></div>
         <div class="allmenu__col"><h2><a href="../%ec%8b%9c%ed%97%98%ec%a0%95%eb%b3%b4/">시험정보</a></h2><ul><li><a href="../%ec%9e%90%ea%b2%a9%ec%a6%9d%ec%a0%95%eb%b3%b4/">자격증정보</a></li><li><a href="../%ec%9e%90%ea%b2%a9%ec%a6%9d%ec%8b%9c%ed%97%98%ec%9d%bc%ec%a0%95/">자격증시험일정</a></li><li><a href="../%ea%b8%b0%ec%b6%9c%eb%ac%b8%ec%a0%9c/">기출문제</a></li></ul></div>
-        <div class="allmenu__col"><h2><a href="../%ec%bb%a4%eb%ae%a4%eb%8b%88%ed%8b%b0/">커뮤니티</a></h2><ul><li><a href="../%ec%b9%b4%ec%b9%b4%ec%98%a4%ed%86%a1%ec%83%81%eb%8b%b4/">카카오톡 상담</a></li><li><a href="../%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/">공지사항</a></li><li><a href="../%ec%b7%a8%ec%97%85%eb%b3%b4%eb%8f%84%ec%8b%a4/">취업보도실</a></li><li><a href="../%ed%8f%ac%ed%86%a0%ea%b0%a4%eb%9f%ac%eb%a6%ac/">포토갤러리</a></li></ul></div>
+        <div class="allmenu__col"><h2><a href="../%ec%bb%a4%eb%ae%a4%eb%8b%88%ed%8b%b0/">커뮤니티</a></h2><ul><li><a href="../%ec%b9%b4%ec%b9%b4%ec%98%a4%ed%86%a1%ec%83%81%eb%8b%b4/">카카오톡 상담</a></li><li><a href="../%ec%b7%a8%ec%97%85%eb%b3%b4%eb%8f%84%ec%8b%a4/">취업보도실</a></li><li><a href="../%ed%8f%ac%ed%86%a0%ea%b0%a4%eb%9f%ac%eb%a6%ac/">포토갤러리</a></li><li><a href="../%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/">요리보기</a></li></ul></div>
         <div class="allmenu__col"><h2><a href="../%ea%b5%ad%eb%b9%84%ec%a7%80%ec%9b%90/">국비지원</a></h2><ul><li><a href="../%ea%b7%bc%eb%a1%9c%ec%9e%90%ec%88%98%ea%b0%95%ec%a7%80%ec%9b%90%ea%b8%88%ed%9b%88%eb%a0%a8-%eb%b0%8f-%ea%b7%bc%eb%a1%9c%ec%9e%90%eb%8a%a5%eb%a0%a5%ea%b0%9c%eb%b0%9c/">근로자수강지원금훈련 및 근로자능력개발</a></li><li><a href="../%ea%b5%ad%eb%af%bc%ec%b7%a8%ec%97%85%ec%a7%80%ec%9b%90%ec%a0%9c%eb%8f%84/">국민취업지원제도</a></li><li><a href="../%ea%b5%ad%eb%b9%84%ec%a7%80%ec%9b%90/">국비지원</a></li></ul></div>
         <div class="allmenu__contact"><a class="btn" href="../카카오톡상담/">카카오톡 상담</a><a class="btn btn--tel" href="tel:0425266226">042-526-6226</a></div>
       </div>
@@ -48,389 +89,193 @@
 <main id="content">
   <section class="ph" aria-labelledby="page-h">
     <div class="wrap ph__in">
-      <p class="ph__crumbs"><a href="../">HOME</a><span aria-hidden="true">›</span><a href="../%ec%bb%a4%eb%ae%a4%eb%8b%88%ed%8b%b0/">커뮤니티</a><span aria-hidden="true">›</span><span aria-current="page">공지사항</span></p>
-      <h1 id="page-h" class="ph__title">공지사항</h1>
-      <p class="ph__sub">이화푸드의 소식과 상담을 한곳에서 보세요.</p>
-      <nav class="ph__tabs" aria-label="커뮤니티 메뉴"><ul><li><a href="../%ec%b9%b4%ec%b9%b4%ec%98%a4%ed%86%a1%ec%83%81%eb%8b%b4/">카카오톡 상담</a></li><li><a href="../%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/" aria-current="page">공지사항</a></li><li><a href="../%ec%b7%a8%ec%97%85%eb%b3%b4%eb%8f%84%ec%8b%a4/">취업보도실</a></li><li><a href="../%ed%8f%ac%ed%86%a0%ea%b0%a4%eb%9f%ac%eb%a6%ac/">포토갤러리</a></li></ul></nav>
+      <p class="ph__crumbs"><a href="../">HOME</a><span aria-hidden="true">›</span><a href="../%ec%bb%a4%eb%ae%a4%eb%8b%88%ed%8b%b0/">커뮤니티</a><span aria-hidden="true">›</span><span aria-current="page">요리보기</span></p>
+      <h1 id="page-h" class="ph__title">요리보기</h1>
+      <p class="ph__sub">분야별 인기 요리 유튜브 채널 20선</p>
+      <nav class="ph__tabs" aria-label="커뮤니티 메뉴"><ul><li><a href="../%ec%b9%b4%ec%b9%b4%ec%98%a4%ed%86%a1%ec%83%81%eb%8b%b4/">카카오톡 상담</a></li><li><a href="../%ec%b7%a8%ec%97%85%eb%b3%b4%eb%8f%84%ec%8b%a4/">취업보도실</a></li><li><a href="../%ed%8f%ac%ed%86%a0%ea%b0%a4%eb%9f%ac%eb%a6%ac/">포토갤러리</a></li><li><a href="../%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/" aria-current="page">요리보기</a></li></ul></nav>
     </div>
   </section>
 
   <div class="pbody">
-    <article class="wrap page page--board">
-      <div class="board"><div id="kboard-default-list">
-	<div class="kboard-list-header">
-					<div class="kboard-total-count">
-				전체 157			</div>
-		<div class="kboard-sort">
-			<form id="kboard-sort-form-1" method="get" action="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/">
-				<input type="hidden" name="mod" value="list"><input type="hidden" name="pageid" value="1"><input type="hidden" name="kboard_list_sort_remember" value="1">				
-				<select name="kboard_list_sort" onchange="this.form.submit();" aria-label="정렬">
-					<option value="newest" selected>최신순</option>
-					<option value="best">추천순</option>
-					<option value="viewed">조회순</option>
-					<option value="updated">업데이트순</option>
-				</select>
-			</form>
-		</div>
-	</div>
-	<div class="kboard-list">
-		<div class="table-wrap" tabindex="0"><table>
-			<thead>
-				<tr>
-					<td class="kboard-list-uid">번호</td>
-					<td class="kboard-list-title">제목</td>
-					<td class="kboard-list-user">작성자</td>
-					<td class="kboard-list-date">작성일</td>
-					<td class="kboard-list-vote">추천</td>
-					<td class="kboard-list-view">조회</td>
-				</tr>
-			</thead>
-			<tbody>
-								<tr class="kboard-list-notice">
-					<td class="kboard-list-uid">공지사항</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=145">
-							<div class="kboard-default-cut-strings">
-																								★☆ 국비지원교육 개강일정 (실업자 &amp; 근로자) ☆★								<span class="kboard-comments-count">(2)</span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2022.07.12</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 8845</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2022.07.12</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">8845</td>
-				</tr>
-								<tr class="kboard-list-notice">
-					<td class="kboard-list-uid">공지사항</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=143">
-							<div class="kboard-default-cut-strings">
-																								★카카오톡채널 상담 오픈								<span class="kboard-comments-count">(1)</span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2022.02.21</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 1905</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2022.02.21</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">1905</td>
-				</tr>
-								<tr class="kboard-list-notice">
-					<td class="kboard-list-uid">공지사항</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=141">
-							<div class="kboard-default-cut-strings">
-																								- 국비 훈련생 선발기준 안내 -								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2021.06.01</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 4059</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2021.06.01</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">4059</td>
-				</tr>
-								<tr class="kboard-list-notice">
-					<td class="kboard-list-uid">공지사항</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=136">
-							<div class="kboard-default-cut-strings">
-																								★ 주 차 안 내 ★								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2020.04.22</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 4312</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2020.04.22</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">4312</td>
-				</tr>
-																<tr class="">
-					<td class="kboard-list-uid">153</td>
-					<td class="kboard-list-title">
-						<a href="../%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/157/">
-							<div class="kboard-default-cut-strings">
-																								커피바리스타 자격취득과정(이론+실기) 상세 안내								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2024.01.08</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 1245</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2024.01.08</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">1245</td>
-				</tr>
-												<tr class="">
-					<td class="kboard-list-uid">152</td>
-					<td class="kboard-list-title">
-						<a href="../%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/156/">
-							<div class="kboard-default-cut-strings">
-																								바리스타실무(라떼아트, 카페음료) 과정 상세 안내								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2024.01.08</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 1054</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2024.01.08</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">1054</td>
-				</tr>
-												<tr class="">
-					<td class="kboard-list-uid">151</td>
-					<td class="kboard-list-title">
-						<a href="../%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/155/">
-							<div class="kboard-default-cut-strings">
-																								2024년 떡 제조기능사 과정의 상세 수강내용								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2023.12.26</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 1210</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2023.12.26</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">1210</td>
-				</tr>
-												<tr class="">
-					<td class="kboard-list-uid">150</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=154">
-							<div class="kboard-default-cut-strings">
-																								양식 브런치 마스터과정 메뉴 안내								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2023.12.22</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 523</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2023.12.22</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">523</td>
-				</tr>
-												<tr class="">
-					<td class="kboard-list-uid">149</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=153">
-							<div class="kboard-default-cut-strings">
-																								애견카페 취창업과정(음료제조+애견카페용 수제간식) 메뉴 안내								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2023.12.22</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 479</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2023.12.22</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">479</td>
-				</tr>
-												<tr class="">
-					<td class="kboard-list-uid">148</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=152">
-							<div class="kboard-default-cut-strings">
-																								한식/양식/중식/일식 조리기능사 과정 메뉴 안내								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2023.09.14</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 747</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2023.09.14</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">747</td>
-				</tr>
-												<tr class="">
-					<td class="kboard-list-uid">147</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=151">
-							<div class="kboard-default-cut-strings">
-																								2024년도 떡제조기능사 실기시험 안내 (과제 추가)								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2023.09.11</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 1011</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2023.09.11</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">1011</td>
-				</tr>
-												<tr class="">
-					<td class="kboard-list-uid">146</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=150">
-							<div class="kboard-default-cut-strings">
-																								소상공인진흥공단 전문기술교육 <베이커리숍 실무향상과정(건강빵＆구움과자)> 수강생 모집!								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2023.05.10</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 559</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2023.05.10</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">559</td>
-				</tr>
-												<tr class="">
-					<td class="kboard-list-uid">145</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=149">
-							<div class="kboard-default-cut-strings">
-																								제과 디저트 실무과정(구움과자+마카롱) 메뉴								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2022.12.28</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 738</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2022.12.28</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">738</td>
-				</tr>
-												<tr class="">
-					<td class="kboard-list-uid">144</td>
-					<td class="kboard-list-title">
-						<a href="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/?mod=document&#038;uid=148">
-							<div class="kboard-default-cut-strings">
-																								2023년도 제과, 제빵기능사 실기시험 변경사항								<span class="kboard-comments-count"></span>
-							</div>
-						</a>
-						<div class="kboard-mobile-contents">
-							<span class="contents-item kboard-user">관리자</span>
-							<span class="contents-separator kboard-date">|</span>
-							<span class="contents-item kboard-date">2022.12.15</span>
-							<span class="contents-separator kboard-vote">|</span>
-							<span class="contents-item kboard-vote">추천 0</span>
-							<span class="contents-separator kboard-view">|</span>
-							<span class="contents-item kboard-view">조회 1071</span>
-						</div>
-					</td>
-					<td class="kboard-list-user">관리자</td>
-					<td class="kboard-list-date">2022.12.15</td>
-					<td class="kboard-list-vote">0</td>
-					<td class="kboard-list-view">1071</td>
-				</tr>
-											</tbody>
-		</table></div>
-	</div>
-	<div class="kboard-pagination">
-		<ul class="kboard-pagination-pages">
-			<li class="active"><a href="?pageid=1&mod=list" onclick="return false">1</a></li><li><a href="?pageid=2&mod=list">2</a></li><li><a href="?pageid=3&mod=list">3</a></li><li><a href="?pageid=4&mod=list">4</a></li><li><a href="?pageid=5&mod=list">5</a></li><li><a href="?pageid=6&mod=list">6</a></li><li><a href="?pageid=7&mod=list">7</a></li><li><a href="?pageid=8&mod=list">8</a></li><li><a href="?pageid=9&mod=list">9</a></li><li><a href="?pageid=10&mod=list">10</a></li><li class="next-page"><a href="?pageid=2&mod=list">»</a></li><li class="last-page"><a href="?pageid=16&mod=list">마지막</a></li>		</ul>
-	</div>
-	<div class="kboard-search">
-		<form id="kboard-search-form-1" method="get" action="../%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD/">
-			<input type="hidden" name="mod" value="list"><input type="hidden" name="pageid" value="1">			
-			<select name="target" aria-label="검색 대상">
-				<option value="">전체</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-				<option value="member_display">작성자</option>
-			</select>
-			<input type="search" name="keyword" value="" aria-label="검색어" autocomplete="off">
-			<button type="submit" class="kboard-default-button-small">검색</button>
-		</form>
-	</div>
-	</div>
-</div>
+    <article class="wrap page yt">
+      <div class="yt__in">
+        <p class="yt__lead">분야를 고른 뒤 채널을 누르면 이 페이지 안에서 해당 채널의 영상을 바로 볼 수 있습니다.</p>
+        <ul class="yt__chips" aria-label="분야 선택"><li><button type="button" class="yt__chip" aria-pressed="true" data-cat="">전체 <span>20</span></button></li><li><button type="button" class="yt__chip" aria-pressed="false" data-cat="한식·집밥">한식·집밥 <span>6</span></button></li><li><button type="button" class="yt__chip" aria-pressed="false" data-cat="양식">양식 <span>2</span></button></li><li><button type="button" class="yt__chip" aria-pressed="false" data-cat="셰프 채널">셰프 채널 <span>3</span></button></li><li><button type="button" class="yt__chip" aria-pressed="false" data-cat="제과제빵">제과제빵 <span>5</span></button></li><li><button type="button" class="yt__chip" aria-pressed="false" data-cat="샌드위치·간단식">샌드위치·간단식 <span>1</span></button></li><li><button type="button" class="yt__chip" aria-pressed="false" data-cat="심화 요리">심화 요리 <span>1</span></button></li><li><button type="button" class="yt__chip" aria-pressed="false" data-cat="살림·스타일링">살림·스타일링 <span>1</span></button></li><li><button type="button" class="yt__chip" aria-pressed="false" data-cat="요리 일반">요리 일반 <span>1</span></button></li></ul>
+        <ul class="yt__grid" id="yt-grid">
+          <li class="yt__item" data-cat="한식·집밥">
+            <a class="yt__card" href="https://www.youtube.com/@paik_jongwon" target="_blank" rel="noopener" data-list="UUyn-K7rZLXjGl7VXGweIlcA" data-name="백종원 PAIK JONG WON">
+              <span class="yt__tag">한식·집밥</span>
+              <span class="yt__name">백종원 PAIK JONG WON</span>
+              <span class="yt__desc">&#x27;요리비책&#x27; 중심, 올해 6월 활동 재개</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="한식·집밥">
+            <a class="yt__card" href="https://www.youtube.com/@deliciousday1" target="_blank" rel="noopener" data-list="UUFiYPUhUzLKoi-cZ0AwpjLA" data-name="매일맛나">
+              <span class="yt__tag">한식·집밥</span>
+              <span class="yt__name">매일맛나</span>
+              <span class="yt__desc">집밥 레시피</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="한식·집밥">
+            <a class="yt__card" href="https://www.youtube.com/@onemealaday888" target="_blank" rel="noopener" data-list="UUPWFxcwPliEBMwJjmeFIDIg" data-name="하루한끼">
+              <span class="yt__tag">한식·집밥</span>
+              <span class="yt__name">하루한끼</span>
+              <span class="yt__desc">간단한 재료로 만드는 레시피</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="한식·집밥">
+            <a class="yt__card" href="https://www.youtube.com/@cooking_haru" target="_blank" rel="noopener" data-list="UUC8bTxyN2ZCfMzS_JAEClfA" data-name="쿠킹하루">
+              <span class="yt__tag">한식·집밥</span>
+              <span class="yt__name">쿠킹하루</span>
+              <span class="yt__desc">집밥·간단 요리</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="한식·집밥">
+            <a class="yt__card" href="https://www.youtube.com/@1mincook" target="_blank" rel="noopener" data-list="UU0htUSwcxfSGNfK_5Q28JkA" data-name="1분요리 뚝딱이형">
+              <span class="yt__tag">한식·집밥</span>
+              <span class="yt__name">1분요리 뚝딱이형</span>
+              <span class="yt__desc">짧은 영상 중심 간단 요리</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="한식·집밥">
+            <a class="yt__card" href="https://www.youtube.com/@honeykkicook" target="_blank" rel="noopener" data-list="UUvQPUPoMK0Smj-OHeUe9SEw" data-name="꿀키 Honeykki">
+              <span class="yt__tag">한식·집밥</span>
+              <span class="yt__name">꿀키 Honeykki</span>
+              <span class="yt__desc">한식·양식·중식·디저트 전반, 초보용</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="양식">
+            <a class="yt__card" href="https://www.youtube.com/@swab85" target="_blank" rel="noopener" data-list="UUgsffS7MfKL6YU3r_U3E-aA" data-name="승우아빠">
+              <span class="yt__tag">양식</span>
+              <span class="yt__name">승우아빠</span>
+              <span class="yt__desc">셰프 출신 양식 중심 채널</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="양식">
+            <a class="yt__card" href="https://www.youtube.com/@맛수령" target="_blank" rel="noopener" data-list="UU1l27Mw8GuCbmK0Z5SzIyRw" data-name="요리보고 조리보고 (맛수령)">
+              <span class="yt__tag">양식</span>
+              <span class="yt__name">요리보고 조리보고 (맛수령)</span>
+              <span class="yt__desc">집에서 따라 하는 레스토랑 요리</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="셰프 채널">
+            <a class="yt__card" href="https://www.youtube.com/@yeogane" target="_blank" rel="noopener" data-list="UU4FsMmpGvsmXsxKNDVrJW4w" data-name="여가네 (여경래·박은영)">
+              <span class="yt__tag">셰프 채널</span>
+              <span class="yt__name">여가네 (여경래·박은영)</span>
+              <span class="yt__desc">중식 중심 레시피와 예능</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="셰프 채널">
+            <a class="yt__card" href="https://www.youtube.com/@knifejisun" target="_blank" rel="noopener" data-list="UUp78dvKT1tXRr17IGzWTvnw" data-name="정지선 셰프">
+              <span class="yt__tag">셰프 채널</span>
+              <span class="yt__name">정지선 셰프</span>
+              <span class="yt__desc">요리와 라이프스타일</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="셰프 채널">
+            <a class="yt__card" href="https://www.youtube.com/@Chef_SungAnh" target="_blank" rel="noopener" data-list="UUZffS3HZmQz18zuCWStcfSA" data-name="안성재 셰프">
+              <span class="yt__tag">셰프 채널</span>
+              <span class="yt__name">안성재 셰프</span>
+              <span class="yt__desc">2025년 신생 채널 중 구독자 성장률 1위</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="제과제빵">
+            <a class="yt__card" href="https://www.youtube.com/@Cooking_tree" target="_blank" rel="noopener" data-list="UUtby6rJtBGgUm-2oD_E7bzw" data-name="Cooking tree 쿠킹트리">
+              <span class="yt__tag">제과제빵</span>
+              <span class="yt__name">Cooking tree 쿠킹트리</span>
+              <span class="yt__desc">디저트·베이킹 선두 채널</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="제과제빵">
+            <a class="yt__card" href="https://www.youtube.com/@ARIKITCHEN" target="_blank" rel="noopener" data-list="UU2jkfOUD5KNbIpkb77-chqQ" data-name="ARIKITCHEN 아리키친">
+              <span class="yt__tag">제과제빵</span>
+              <span class="yt__name">ARIKITCHEN 아리키친</span>
+              <span class="yt__desc">베이커리 운영, 제과 전문성</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="제과제빵">
+            <a class="yt__card" href="https://www.youtube.com/@BBangsil" target="_blank" rel="noopener" data-list="UUE5vkmrNWHkoNB21y4eLiDA" data-name="빵실베이킹 BBangsil">
+              <span class="yt__tag">제과제빵</span>
+              <span class="yt__name">빵실베이킹 BBangsil</span>
+              <span class="yt__desc">홈베이킹</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="제과제빵">
+            <a class="yt__card" href="https://www.youtube.com/@umisbaking8346" target="_blank" rel="noopener" data-list="UU1NLUzgZaBOo050WuQE80eA" data-name="우미스베이킹 Umi&#x27;s baking">
+              <span class="yt__tag">제과제빵</span>
+              <span class="yt__name">우미스베이킹 Umi&#x27;s baking</span>
+              <span class="yt__desc">홈베이킹</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="제과제빵">
+            <a class="yt__card" href="https://www.youtube.com/@haeum_cooking" target="_blank" rel="noopener" data-list="UUWkI9Qcm3vfRY0bZw71ZzYw" data-name="하음쿠킹 Haeum Cooking">
+              <span class="yt__tag">제과제빵</span>
+              <span class="yt__name">하음쿠킹 Haeum Cooking</span>
+              <span class="yt__desc">홈베이킹</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="샌드위치·간단식">
+            <a class="yt__card" href="https://www.youtube.com/@CreamParkluv" target="_blank" rel="noopener" data-list="UUzEe1UbKuJqbZk3XCBHmUwA" data-name="Cream Park">
+              <span class="yt__tag">샌드위치·간단식</span>
+              <span class="yt__name">Cream Park</span>
+              <span class="yt__desc">샌드위치 레시피</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="심화 요리">
+            <a class="yt__card" href="https://www.youtube.com/@Dalbangatgan" target="_blank" rel="noopener" data-list="UUlN4C4fDYStbRJ2LReGlIiQ" data-name="달방앗간">
+              <span class="yt__tag">심화 요리</span>
+              <span class="yt__name">달방앗간</span>
+              <span class="yt__desc">난이도 있는 요리</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="살림·스타일링">
+            <a class="yt__card" href="https://www.youtube.com/@majifoodtv" target="_blank" rel="noopener" data-list="UU-CnwTZJ_A5v-AQK92fNYKw" data-name="마지 maji">
+              <span class="yt__tag">살림·스타일링</span>
+              <span class="yt__name">마지 maji</span>
+              <span class="yt__desc">푸드스타일링, 식재료 보관, 주방 정리</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+          <li class="yt__item" data-cat="요리 일반">
+            <a class="yt__card" href="https://www.youtube.com/@칩chip" target="_blank" rel="noopener" data-list="UU-YRx5jfreS9abTGxfmV4Hg" data-name="칩">
+              <span class="yt__tag">요리 일반</span>
+              <span class="yt__name">칩</span>
+              <span class="yt__desc">요리 채널 순위권</span>
+              <span class="yt__play"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>영상 보기</span>
+            </a>
+          </li>
+        </ul>
+        <p class="yt__foot">※ 채널별 최신 업로드 영상이 재생 목록으로 열립니다. 일부 영상은 채널 설정에 따라 유튜브에서만 재생될 수 있습니다.</p>
+      </div>
     </article>
+    <dialog class="yt__dlg" id="yt-dlg" aria-labelledby="yt-dlg-h">
+      <div class="yt__dlg-in">
+        <div class="yt__dlg-top">
+          <h2 class="yt__dlg-h" id="yt-dlg-h">채널</h2>
+          <button type="button" class="yt__x" id="yt-close" aria-label="닫기">✕</button>
+        </div>
+        <div class="yt__frame"><iframe id="yt-frame" title="유튜브 영상" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+        <a class="yt__out" id="yt-out" href="#" target="_blank" rel="noopener">유튜브에서 채널 열기 ↗</a>
+      </div>
+    </dialog>
   </div>
 
   <section class="cc" aria-labelledby="cc-h">
@@ -473,5 +318,31 @@
   </div>
 </footer>
 <script src="../layout2/home.js" defer></script>
+<script>
+(() => {
+  const grid = document.getElementById('yt-grid');
+  const chips = [...document.querySelectorAll('.yt__chip')];
+  chips.forEach((b) => b.addEventListener('click', () => {
+    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    const cat = b.dataset.cat;
+    grid.querySelectorAll('.yt__item').forEach((li) => { li.hidden = !!cat && li.dataset.cat !== cat; });
+  }));
+  const dlg = document.getElementById('yt-dlg'), frame = document.getElementById('yt-frame');
+  const head = document.getElementById('yt-dlg-h'), out = document.getElementById('yt-out');
+  let last = null;
+  const close = () => { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); };
+  dlg.addEventListener('close', () => { frame.src = 'about:blank'; document.body.style.overflow = ''; if (last) last.focus(); });
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
+  document.getElementById('yt-close').addEventListener('click', close);
+  grid.addEventListener('click', (e) => {
+    const a = e.target.closest('.yt__card');
+    if (!a || typeof dlg.showModal !== 'function') return;  // no dialog support: fall back to opening YouTube
+    e.preventDefault(); last = a;
+    head.textContent = a.dataset.name; out.href = a.href;
+    frame.src = 'https://www.youtube-nocookie.com/embed/videoseries?list=' + a.dataset.list + '&rel=0&playsinline=1&autoplay=1';
+    dlg.showModal(); document.body.style.overflow = 'hidden';
+  });
+})();
+</script>
 </body>
 </html>
