@@ -101,20 +101,6 @@
     ].filter(Boolean).join('\n');
   };
 
-  // 전화 문자: open the phone's messaging app addressed to the academy with the message filled in.
-  // iOS reads the body after "&", Android and others after "?".
-  const SMS_TO = '01030630362';
-  const smsBtn = document.getElementById('kk-sms');
-  if (smsBtn) smsBtn.addEventListener('click', () => {
-    const text = buildMessage('문자 상담 신청');
-    if (!text) return;
-    const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    window.location.href = `sms:${SMS_TO}${ios ? '&' : '?'}body=${encodeURIComponent(text)}`;
-    status.textContent = mobile
-      ? '문자 앱이 열렸다면 내용을 확인하고 전송을 눌러 주세요.'
-      : '문자 발송은 휴대폰에서 이용해 주세요. 010-3063-0362로 문자를 보내 주시면 상담해 드립니다.';
-  });
-
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const text = buildMessage('카카오톡 상담 신청');

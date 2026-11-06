@@ -42,8 +42,6 @@
 .kk-submit:active { transform: translateY(1px); }
 .kk-submit:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 .kk-submit:disabled { opacity: 0.55; cursor: not-allowed; }
-.kk-submit--sms { background: var(--color-white); color: var(--color-ink); border: 1px solid var(--color-ink); }
-.kk-submit--sms:hover { background: var(--color-paper-2); }
 .kk-agree { display: flex; align-items: flex-start; gap: var(--space-xs); margin-top: var(--space-md); font-size: var(--text-sm); cursor: pointer; }
 .kk-agree input { width: 20px; height: 20px; margin: 2px 0 0; flex-shrink: 0; accent-color: var(--color-field); }
 .kk-agree input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
