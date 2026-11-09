@@ -1,7 +1,6 @@
-// 전화문자 상담: choose a course, tick subjects, fill contact details. On submit the page writes a
-// consultation message, copies it, and opens a dialog whose '문자 보내기' link opens the phone's
-// messaging app addressed to the academy with the message filled in (a '전화 걸기' link sits beside
-// it). Nothing is stored or sent by the site.
+// 전화문자 상담: choose a course, tick subjects, fill contact details. '문자 보내기' builds the
+// consultation message and opens the phone's messaging app addressed to the academy with the message
+// filled in. Nothing is stored or sent by the site itself.
 (() => {
   const form = document.getElementById('kk-form');
   if (!form) return;
@@ -9,17 +8,10 @@
   const panels = [...form.querySelectorAll('.kk-panel')];
   const picked = document.getElementById('kk-picked');
   const status = document.getElementById('kk-status');
-  const dlg = document.getElementById('kk-dlg');
-  const msgBox = document.getElementById('kk-msg');
-  const dlgHead = document.getElementById('kk-dlg-h');
-  const dlgLead = document.getElementById('kk-dlg-lead');
-  const dlgStatus = document.getElementById('kk-dlg-status');
-  const openBtn = document.getElementById('kk-open');
-  const recopy = document.getElementById('kk-recopy');
   const mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   // iOS reads the sms: body after "&", Android and others after "?".
   const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  const SMS_TO = '01030630362';
+  const SMS_TO = '0425266226';
   const smsHref = (text) => `sms:${SMS_TO}${ios ? '&' : '?'}body=${encodeURIComponent(text)}`;
 
   cats.forEach((btn) => btn.addEventListener('click', () => {
@@ -45,46 +37,6 @@
     if (el) { el.setAttribute('aria-invalid', 'true'); el.focus(); }
   };
 
-  // Copy: the async clipboard first, then the selection fallback for older or locked-down browsers.
-  const copy = async (text) => {
-    try { await navigator.clipboard.writeText(text); return true; } catch (e) { /* fall through */ }
-    try {
-      msgBox.focus(); msgBox.select(); msgBox.setSelectionRange(0, text.length);
-      return document.execCommand('copy');
-    } catch (e) { return false; }
-  };
-
-  const showResult = (ok) => {
-    dlgHead.textContent = ok ? '상담 메시지를 복사했습니다' : '상담 메시지를 복사해 주세요';
-    dlgLead.textContent = ok
-      ? '아래 문자 보내기를 누르면 메시지가 채워진 문자 앱이 열립니다. 전송만 누르면 상담 신청이 끝납니다.'
-      : '이 브라우저는 자동 복사를 막고 있습니다. 아래 메시지를 길게 눌러(또는 Ctrl+C) 복사한 뒤 문자 앱에 붙여넣어 주세요.';
-    if (!ok) { msgBox.focus(); msgBox.select(); }
-  };
-
-  const openDialog = () => {
-    if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
-    document.body.classList.add('kk-locked');
-    (dlg.querySelector('#kk-open')).focus();
-  };
-  const closeDialog = () => {
-    if (typeof dlg.close === 'function') dlg.close(); else dlg.removeAttribute('open');
-  };
-  dlg.addEventListener('close', () => { document.body.classList.remove('kk-locked'); form.querySelector('.kk-submit').focus(); });
-  dlg.addEventListener('click', (e) => { if (e.target === dlg) closeDialog(); });
-  document.getElementById('kk-close').addEventListener('click', closeDialog);
-
-  recopy.addEventListener('click', async () => {
-    const ok = await copy(msgBox.value);
-    dlgStatus.textContent = ok ? '다시 복사했습니다. 문자 앱에 붙여넣어 주세요.' : '복사하지 못했습니다. 메시지를 직접 선택해 복사해 주세요.';
-    if (!ok) { msgBox.focus(); msgBox.select(); }
-  });
-  openBtn.addEventListener('click', () => {
-    dlgStatus.textContent = mobile
-      ? '문자 앱이 열렸다면 내용을 확인하고 전송을 눌러 주세요.'
-      : '문자 발송은 휴대폰에서 이용해 주세요. 010-3063-0362로 문자를 보내 주시면 상담해 드립니다.';
-  });
-
   // Check the form and build the consultation message; returns null (after flagging the field) if incomplete.
   const buildMessage = (title) => {
     form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
@@ -107,16 +59,16 @@
     ].filter(Boolean).join('\n');
   };
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     const text = buildMessage('전화문자 상담 신청');
     if (!text) return;
-
-    msgBox.value = text;
-    openBtn.href = smsHref(text);
-    dlgStatus.textContent = '';
-    const ok = await copy(text);
-    openDialog();
-    showResult(ok);
+    if (mobile) {
+      status.textContent = '문자 앱이 열렸다면 내용을 확인하고 전송을 눌러 주세요.';
+      window.location.href = smsHref(text);
+    } else {
+      status.textContent = '문자 발송은 휴대폰에서 이용해 주세요. PC에서는 042-526-6226으로 전화 주시면 상담해 드립니다.';
+      window.location.href = smsHref(text);
+    }
   });
 })();

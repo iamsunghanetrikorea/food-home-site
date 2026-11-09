@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
-<link rel="stylesheet" href="../layout2/kakao.css?v=sms3">
+<link rel="stylesheet" href="../layout2/kakao.css?v=sms4">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="sub sub--kakao">
@@ -51,7 +51,7 @@
     <div class="wrap ph__in">
       <p class="ph__crumbs"><a href="../">HOME</a><span aria-hidden="true">›</span><a href="../커뮤니티/">커뮤니티</a><span aria-hidden="true">›</span><span aria-current="page">전화문자 상담</span></p>
       <h1 id="page-h" class="ph__title">전화문자 상담으로<br>궁금한 과정을 물어보세요</h1>
-      <p class="ph__sub">원하는 과정을 고르면 상담 메시지를 만들어 문자나 전화로 바로 보내 드립니다.</p>
+      <p class="ph__sub">원하는 과정을 고르고 문자 보내기를 누르면 상담 메시지가 042-526-6226으로 바로 전송됩니다.</p>
     </div>
   </section>
 
@@ -104,35 +104,15 @@
             <input class="kk-input" id="kk-tel3" name="tel3" type="text" inputmode="numeric" maxlength="4" placeholder="0000" autocomplete="tel-local-suffix">
           </fieldset>
           <label class="visually-hidden" for="kk-memo">문의 내용</label>
-          <textarea class="kk-input kk-memo" id="kk-memo" name="memo" rows="3" placeholder="궁금한 점이 있으면 적어 주세요 (선택)"></textarea>
-          <button class="kk-submit" type="submit">전화문자 상담 신청하기</button>
+          <textarea class="kk-input kk-memo" id="kk-memo" name="memo" rows="3" placeholder="(예) 수강 일정이 궁금합니다."></textarea>
+          <button class="kk-submit" type="submit">문자 보내기</button>
           <label class="kk-agree"><input type="checkbox" id="kk-agree" name="agree" required><span>입력한 내용으로 상담 메시지를 만드는 데 동의합니다. (필수)</span></label>
-          <p class="kk-note">입력하신 내용은 이 사이트에 저장되지 않으며, 휴대폰 문자(010-3063-0362)로 보낼 상담 메시지로만 쓰입니다. 바로 통화를 원하시면 042-526-6226으로 전화해 주세요. 개인정보 처리는 <a href="../개인정보처리방침">개인정보처리방침</a>을 따릅니다.</p>
+          <p class="kk-note">문자 보내기를 누르면 입력하신 내용이 담긴 문자 앱이 열리며, 042-526-6226으로 전송만 하시면 됩니다. 입력하신 내용은 이 사이트에 저장되지 않습니다. 바로 통화를 원하시면 <a href="tel:0425266226">042-526-6226</a>으로 전화해 주세요. 개인정보 처리는 <a href="../개인정보처리방침">개인정보처리방침</a>을 따릅니다.</p>
           <p class="kk-status" id="kk-status" role="status" aria-live="polite"></p>
         </div>
       </form>
     </div>
 
-    <dialog class="kk-dlg" id="kk-dlg" aria-labelledby="kk-dlg-h">
-      <div class="kk-dlg__in">
-        <button type="button" class="kk-dlg__x" id="kk-close" aria-label="닫기">✕</button>
-        <h2 class="kk-dlg__h" id="kk-dlg-h">상담 메시지를 복사했습니다</h2>
-        <p class="kk-dlg__lead" id="kk-dlg-lead">아래 문자 보내기를 누르면 메시지가 채워진 문자 앱이 열립니다. 전송만 누르면 상담 신청이 끝납니다.</p>
-        <ol class="kk-dlg__steps">
-          <li><b>1</b><span>휴대폰에서 아래 <strong>문자 보내기</strong> 버튼을 누릅니다.</span></li>
-          <li><b>2</b><span>문자 내용이 비어 있으면 입력창을 <strong>길게 눌러 붙여넣기</strong>합니다. (PC에서는 010-3063-0362로 직접 문자를 보내 주세요.)</span></li>
-          <li><b>3</b><span><strong>전송</strong>을 누르면 학원에서 답변드립니다. 바로 통화를 원하시면 <strong>전화 걸기</strong>를 누르세요.</span></li>
-        </ol>
-        <label class="kk-dlg__label" for="kk-msg">보낼 상담 메시지</label>
-        <textarea class="kk-input kk-dlg__msg" id="kk-msg" rows="5" readonly></textarea>
-        <div class="kk-dlg__act">
-          <a class="kk-open" id="kk-open" href="sms:01030630362">문자 보내기</a>
-          <a class="kk-call" id="kk-call" href="tel:0425266226">전화 걸기</a>
-          <button type="button" class="kk-recopy" id="kk-recopy">메시지 다시 복사</button>
-        </div>
-        <p class="kk-dlg__status" id="kk-dlg-status" role="status" aria-live="polite"></p>
-      </div>
-    </dialog>
   </section>
 
   <section class="cc" aria-labelledby="cc-h">
@@ -175,6 +155,6 @@
   </div>
 </footer>
 <script src="../layout2/home.js" defer></script>
-<script src="../layout2/kakao.js?v=sms3" defer></script>
+<script src="../layout2/kakao.js?v=sms4" defer></script>
 </body>
 </html>

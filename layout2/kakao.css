@@ -34,7 +34,7 @@
 .kk-input { width: 100%; min-height: 48px; margin-bottom: var(--space-sm); padding: 0 var(--space-md); border: 1px solid var(--color-muted); border-radius: var(--radius-card); background: var(--color-white); color: var(--color-ink); font: inherit; outline: 2px solid transparent; outline-offset: -3px; }
 .kk-input:focus-visible { outline-color: var(--color-focus); }
 .kk-input[aria-invalid="true"] { border-color: var(--color-error); }
-.kk-memo, #kk-msg { padding-block: var(--space-sm); min-height: 96px; resize: vertical; }
+.kk-memo { padding-block: var(--space-sm); min-height: 96px; resize: vertical; }
 .kk-tel { display: grid; grid-template-columns: minmax(0, 1.2fr) auto minmax(0, 1fr) auto minmax(0, 1fr); align-items: start; gap: var(--space-xs); margin: 0; padding: 0; border: 0; }
 .kk-tel > span { padding-top: var(--space-sm); }
 .kk-submit { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 52px; margin-top: var(--space-xs); border: 0; border-radius: var(--radius-card); background: var(--color-field); color: var(--color-field-ink); font-size: var(--text-lg); font-weight: 700; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out); }
@@ -50,29 +50,6 @@
 .kk-status { min-height: 1lh; margin-top: var(--space-md); font-size: var(--text-sm); font-weight: 700; color: var(--color-ink); }
 .kk-status.is-error { color: var(--color-error); }
 /* the hand-off dialog */
-.kk-dlg { width: min(560px, calc(100% - 2 * var(--space-md))); max-height: calc(100dvh - 2 * var(--space-md)); padding: 0; border: 0; border-radius: 16px; background: var(--color-white); color: var(--color-ink); box-shadow: var(--shadow-soft); }
-.kk-dlg::backdrop { background: var(--color-scrim); }
-.kk-dlg__in { position: relative; display: grid; gap: var(--space-md); padding: var(--space-xl); }
-.kk-dlg__x { position: absolute; top: var(--space-sm); right: var(--space-sm); display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; font-size: var(--text-lg); cursor: pointer; }
-.kk-dlg__x:hover { background: var(--color-paper-2); }
-.kk-dlg__x:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
-.kk-dlg__h { padding-right: var(--space-xl); font-size: var(--text-2xl); font-weight: 900; line-height: 1.25; }
-.kk-dlg__lead { color: var(--color-ink-2); }
-.kk-dlg__steps { display: grid; gap: var(--space-sm); padding: var(--space-md); background: var(--color-paper-2); border-radius: var(--radius-card); }
-.kk-dlg__steps li { display: flex; align-items: flex-start; gap: var(--space-sm); }
-.kk-dlg__steps b { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--color-field); color: var(--color-field-ink); font-size: var(--text-sm); }
-.kk-dlg__label { font-size: var(--text-sm); font-weight: 700; }
-.kk-dlg__msg { min-height: 120px; margin-bottom: 0; padding-block: var(--space-sm); font-size: var(--text-sm); line-height: 1.6; resize: none; }
-.kk-dlg__act { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-sm); }
-.kk-open { display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: var(--radius-card); background: var(--color-field); color: var(--color-field-ink); font-size: var(--text-lg); font-weight: 900; transition: background-color var(--dur-short) var(--ease-out); }
-.kk-open:hover { background: color-mix(in oklab, var(--color-field) 85%, var(--color-ink)); }
-.kk-open:focus-visible, .kk-call:focus-visible, .kk-recopy:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
-.kk-call, .kk-recopy { display: flex; align-items: center; justify-content: center; min-height: 56px; border: 1px solid var(--color-ink); border-radius: var(--radius-card); background: var(--color-white); font-weight: 700; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out); }
-.kk-call:hover, .kk-recopy:hover { background: var(--color-paper-2); }
-.kk-recopy:active, .kk-call:active, .kk-open:active { transform: translateY(1px); }
-.kk-dlg__status { min-height: 1lh; font-size: var(--text-sm); font-weight: 700; }
-body.kk-locked { overflow: hidden; }
-@media (max-width: 40rem) { .kk-dlg__in { padding: var(--space-lg) var(--space-md); } .kk-dlg__act { grid-template-columns: minmax(0, 1fr); } }
 
 /* without script: every course's subjects show in turn */
 html:not(.js) .kk-panel[hidden] { display: block !important; }
