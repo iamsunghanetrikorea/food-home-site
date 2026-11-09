@@ -1,4 +1,4 @@
-/* 카카오톡 상담 page: three steps (course, subjects, contact) in the reference site's form layout. */
+/* 전화문자 상담 page: three steps (course, subjects, contact) in the reference site's form layout. */
 @import url("./sub.css");
 
 .ph__title br { display: inline; }
@@ -63,13 +63,13 @@
 .kk-dlg__steps b { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--color-field); color: var(--color-field-ink); font-size: var(--text-sm); }
 .kk-dlg__label { font-size: var(--text-sm); font-weight: 700; }
 .kk-dlg__msg { min-height: 120px; margin-bottom: 0; padding-block: var(--space-sm); font-size: var(--text-sm); line-height: 1.6; resize: none; }
-.kk-dlg__act { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--space-sm); }
+.kk-dlg__act { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-sm); }
 .kk-open { display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: var(--radius-card); background: var(--color-field); color: var(--color-field-ink); font-size: var(--text-lg); font-weight: 900; transition: background-color var(--dur-short) var(--ease-out); }
 .kk-open:hover { background: color-mix(in oklab, var(--color-field) 85%, var(--color-ink)); }
-.kk-open:focus-visible, .kk-recopy:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
-.kk-recopy { min-height: 56px; border: 1px solid var(--color-ink); border-radius: var(--radius-card); background: var(--color-white); font-weight: 700; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out); }
-.kk-recopy:hover { background: var(--color-paper-2); }
-.kk-recopy:active, .kk-open:active { transform: translateY(1px); }
+.kk-open:focus-visible, .kk-call:focus-visible, .kk-recopy:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.kk-call, .kk-recopy { display: flex; align-items: center; justify-content: center; min-height: 56px; border: 1px solid var(--color-ink); border-radius: var(--radius-card); background: var(--color-white); font-weight: 700; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out); }
+.kk-call:hover, .kk-recopy:hover { background: var(--color-paper-2); }
+.kk-recopy:active, .kk-call:active, .kk-open:active { transform: translateY(1px); }
 .kk-dlg__status { min-height: 1lh; font-size: var(--text-sm); font-weight: 700; }
 body.kk-locked { overflow: hidden; }
 @media (max-width: 40rem) { .kk-dlg__in { padding: var(--space-lg) var(--space-md); } .kk-dlg__act { grid-template-columns: minmax(0, 1fr); } }

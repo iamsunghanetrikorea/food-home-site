@@ -364,7 +364,7 @@ button { font: inherit; color: inherit; }
   .fac__t { padding: var(--space-2xs) var(--space-sm); font-size: var(--text-sm); }
 }
 
-/* header symbols: on PC the 카카오톡 icon sits after the phone; on phones 카카오톡 and 오시는길 sit left of the phone */
+/* header symbols: on PC the 전화문자 상담 icon sits after the phone; on phones 전화문자 상담 and 오시는길 sit left of the phone */
 .hd__tel { order: 1; }
 .hd__icon--talk { order: 2; }
 .hd__icon--pin { display: none; }
@@ -433,7 +433,7 @@ button { font: inherit; color: inherit; }
 .tile--cal a:hover { background: color-mix(in oklab, var(--color-field) 88%, var(--color-ink)); }
 @media (max-width: 40rem) { .tile--cal a { height: auto; min-height: 220px; } .cal__d { height: 22px; } }
 
-/* phones: the round shortcut row is empty once 카카오톡/오시는길 moved up and 국비지원/시험일정 left */
+/* phones: the round shortcut row is empty once 전화문자 상담/오시는길 moved up and 국비지원/시험일정 left */
 @media (max-width: 60rem) { .quick { display: none; } }
 .cal__d { justify-self: center; width: 22px; height: 22px; } @media (max-width: 40rem) { .cal__d { width: 26px; height: 26px; } }
 

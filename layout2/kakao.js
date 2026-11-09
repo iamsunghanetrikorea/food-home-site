@@ -1,6 +1,7 @@
-// 카카오톡 상담: choose a course, tick subjects, fill contact details. On submit the page writes a
-// consultation message, copies it, and opens a dialog that walks the visitor through pasting it into
-// the academy's Kakao channel chat. Nothing is stored or sent by the site.
+// 전화문자 상담: choose a course, tick subjects, fill contact details. On submit the page writes a
+// consultation message, copies it, and opens a dialog whose '문자 보내기' link opens the phone's
+// messaging app addressed to the academy with the message filled in (a '전화 걸기' link sits beside
+// it). Nothing is stored or sent by the site.
 (() => {
   const form = document.getElementById('kk-form');
   if (!form) return;
@@ -16,7 +17,10 @@
   const openBtn = document.getElementById('kk-open');
   const recopy = document.getElementById('kk-recopy');
   const mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  if (mobile) { openBtn.removeAttribute('target'); }  // on a phone the link hands over to the Kakao app
+  // iOS reads the sms: body after "&", Android and others after "?".
+  const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const SMS_TO = '01030630362';
+  const smsHref = (text) => `sms:${SMS_TO}${ios ? '&' : '?'}body=${encodeURIComponent(text)}`;
 
   cats.forEach((btn) => btn.addEventListener('click', () => {
     cats.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
@@ -53,8 +57,8 @@
   const showResult = (ok) => {
     dlgHead.textContent = ok ? '상담 메시지를 복사했습니다' : '상담 메시지를 복사해 주세요';
     dlgLead.textContent = ok
-      ? '카카오톡 채팅창에 붙여넣고 보내기만 하면 상담 신청이 끝납니다.'
-      : '이 브라우저는 자동 복사를 막고 있습니다. 아래 메시지를 길게 눌러(또는 Ctrl+C) 복사한 뒤 카카오톡에 붙여넣어 주세요.';
+      ? '아래 문자 보내기를 누르면 메시지가 채워진 문자 앱이 열립니다. 전송만 누르면 상담 신청이 끝납니다.'
+      : '이 브라우저는 자동 복사를 막고 있습니다. 아래 메시지를 길게 눌러(또는 Ctrl+C) 복사한 뒤 문자 앱에 붙여넣어 주세요.';
     if (!ok) { msgBox.focus(); msgBox.select(); }
   };
 
@@ -72,11 +76,13 @@
 
   recopy.addEventListener('click', async () => {
     const ok = await copy(msgBox.value);
-    dlgStatus.textContent = ok ? '다시 복사했습니다. 카카오톡에 붙여넣어 주세요.' : '복사하지 못했습니다. 메시지를 직접 선택해 복사해 주세요.';
+    dlgStatus.textContent = ok ? '다시 복사했습니다. 문자 앱에 붙여넣어 주세요.' : '복사하지 못했습니다. 메시지를 직접 선택해 복사해 주세요.';
     if (!ok) { msgBox.focus(); msgBox.select(); }
   });
   openBtn.addEventListener('click', () => {
-    dlgStatus.textContent = '카카오톡 채팅창이 열렸다면 입력창에 붙여넣고 전송을 눌러 주세요.';
+    dlgStatus.textContent = mobile
+      ? '문자 앱이 열렸다면 내용을 확인하고 전송을 눌러 주세요.'
+      : '문자 발송은 휴대폰에서 이용해 주세요. 010-3063-0362로 문자를 보내 주시면 상담해 드립니다.';
   });
 
   // Check the form and build the consultation message; returns null (after flagging the field) if incomplete.
@@ -103,10 +109,11 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const text = buildMessage('카카오톡 상담 신청');
+    const text = buildMessage('전화문자 상담 신청');
     if (!text) return;
 
     msgBox.value = text;
+    openBtn.href = smsHref(text);
     dlgStatus.textContent = '';
     const ok = await copy(text);
     openDialog();
