@@ -1,6 +1,8 @@
 // 전화문자 상담: choose a course, tick subjects, fill contact details. '문자 보내기' builds the
-// consultation message and opens the phone's messaging app addressed to the academy with the message
-// filled in. Nothing is stored or sent by the site itself.
+// consultation message and opens the messaging app addressed to the academy with the message filled in.
+// On a phone that is the SMS app. On a PC it is the desktop messaging app (Mac 메시지 / Windows 휴대폰 연결)
+// when one is registered for sms: links; because a PC may have none, the page also copies the message and
+// shows a QR code that opens the phone's SMS app with the same message. Nothing is stored or sent by the site.
 (() => {
   const form = document.getElementById('kk-form');
   if (!form) return;
@@ -8,11 +10,46 @@
   const panels = [...form.querySelectorAll('.kk-panel')];
   const picked = document.getElementById('kk-picked');
   const status = document.getElementById('kk-status');
+  const pc = document.getElementById('kk-pc');
+  const pcLead = document.getElementById('kk-pc-lead');
+  const pcStatus = document.getElementById('kk-pc-status');
+  const qrBox = document.getElementById('kk-qr');
+  const msgBox = document.getElementById('kk-msg');
+  const copyBtn = document.getElementById('kk-copy');
   const mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  // iOS reads the sms: body after "&", Android and others after "?".
-  const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // Apple (iOS and Mac 메시지) reads the sms: body after "&", Android and Windows after "?".
+  const apple = /iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const SMS_TO = '0425266226';
-  const smsHref = (text) => `sms:${SMS_TO}${ios ? '&' : '?'}body=${encodeURIComponent(text)}`;
+  const SMS_TEL = '042-526-6226';
+  const smsHref = (text) => `sms:${SMS_TO}${apple ? '&' : '?'}body=${encodeURIComponent(text)}`;
+  // QR payload: the SMSTO form is what phone cameras (iOS and Android) open straight into the SMS app.
+  const smsQr = (text) => `SMSTO:${SMS_TO}:${text}`;
+
+  // Copy: the async clipboard first, then the selection fallback for older or locked-down browsers.
+  const copy = async (text) => {
+    try { await navigator.clipboard.writeText(text); return true; } catch (e) { /* fall through */ }
+    try {
+      msgBox.focus(); msgBox.select(); msgBox.setSelectionRange(0, text.length);
+      return document.execCommand('copy');
+    } catch (e) { return false; }
+  };
+  copyBtn.addEventListener('click', async () => {
+    const ok = await copy(msgBox.value);
+    pcStatus.textContent = ok ? '다시 복사했습니다. 메시지 앱에 붙여넣어 주세요.' : '복사하지 못했습니다. 메시지를 직접 선택해 복사해 주세요.';
+    if (!ok) { msgBox.focus(); msgBox.select(); }
+  });
+
+  const drawQr = (text) => {
+    qrBox.textContent = '';
+    if (typeof QRCode !== 'function') { qrBox.textContent = 'QR 코드를 만들 수 없습니다.'; return; }
+    try {
+      new QRCode(qrBox, { text, width: 200, height: 200, correctLevel: QRCode.CorrectLevel.M });
+    } catch (e) {
+      // the message is too long for one QR: fall back to a code without the body, the number still opens the app
+      qrBox.textContent = '';
+      new QRCode(qrBox, { text: `SMSTO:${SMS_TO}:`, width: 200, height: 200, correctLevel: QRCode.CorrectLevel.M });
+    }
+  };
 
   cats.forEach((btn) => btn.addEventListener('click', () => {
     cats.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
@@ -59,16 +96,36 @@
     ].filter(Boolean).join('\n');
   };
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const text = buildMessage('전화문자 상담 신청');
     if (!text) return;
+
     if (mobile) {
       status.textContent = '문자 앱이 열렸다면 내용을 확인하고 전송을 눌러 주세요.';
       window.location.href = smsHref(text);
-    } else {
-      status.textContent = '문자 발송은 휴대폰에서 이용해 주세요. PC에서는 042-526-6226으로 전화 주시면 상담해 드립니다.';
-      window.location.href = smsHref(text);
+      return;
     }
+
+    // PC: hand the message to the desktop messaging app, and show the copy + QR fallbacks in case there is none.
+    msgBox.value = text;
+    drawQr(smsQr(text));
+    pcStatus.textContent = '';
+    pcLead.textContent = 'PC의 메시지 앱(Mac 메시지, Windows 휴대폰 연결)을 여는 중입니다. 앱이 열렸다면 전송만 누르시면 됩니다.';
+    pc.hidden = false;
+    const copied = await copy(text);
+    status.textContent = copied ? '상담 메시지를 복사했습니다. 아래 안내를 확인해 주세요.' : '아래 안내를 확인해 주세요.';
+    pc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    pc.focus({ preventScroll: true });
+
+    let handed = false;
+    const onHide = () => { if (document.hidden) handed = true; };
+    document.addEventListener('visibilitychange', onHide);
+    window.location.href = smsHref(text);
+    window.setTimeout(() => {
+      document.removeEventListener('visibilitychange', onHide);
+      if (handed) return;
+      pcLead.textContent = `PC에 메시지 앱이 없으면 휴대폰으로 아래 QR을 찍어 바로 보내시거나, 복사된 메시지를 붙여넣어 ${SMS_TEL}으로 보내 주세요.`;
+    }, 2500);
   });
 })();

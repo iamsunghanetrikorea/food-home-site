@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
-<link rel="stylesheet" href="../layout2/kakao.css?v=sms4">
+<link rel="stylesheet" href="../layout2/kakao.css?v=sms5">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="sub sub--kakao">
@@ -111,6 +111,24 @@
           <p class="kk-status" id="kk-status" role="status" aria-live="polite"></p>
         </div>
       </form>
+
+      <section class="kk-pc" id="kk-pc" hidden aria-labelledby="kk-pc-h" tabindex="-1">
+        <h2 class="kk-h" id="kk-pc-h">PC에서 문자 보내기</h2>
+        <p class="kk-pc__lead" id="kk-pc-lead">PC의 메시지 앱(Mac 메시지, Windows 휴대폰 연결)을 여는 중입니다. 앱이 열렸다면 전송만 누르시면 됩니다.</p>
+        <div class="kk-pc__grid">
+          <div class="kk-pc__qr">
+            <div class="kk-pc__code" id="kk-qr" role="img" aria-label="휴대폰으로 찍으면 상담 문자가 채워지는 QR 코드"></div>
+            <p>휴대폰 카메라로 QR을 찍으면 042-526-6226으로 보낼 문자가 바로 채워집니다.</p>
+          </div>
+          <div class="kk-pc__msg">
+            <label class="kk-pc__label" for="kk-msg">상담 메시지 (복사되어 있습니다)</label>
+            <textarea class="kk-input kk-pc__text" id="kk-msg" rows="6" readonly></textarea>
+            <button type="button" class="kk-copy" id="kk-copy">메시지 다시 복사</button>
+            <p>메시지 앱이 열리지 않으면 복사한 메시지를 휴대폰 문자나 PC 메시지 앱에 붙여넣어 <strong>042-526-6226</strong>으로 보내 주세요.</p>
+          </div>
+        </div>
+        <p class="kk-status" id="kk-pc-status" role="status" aria-live="polite"></p>
+      </section>
     </div>
 
   </section>
@@ -155,6 +173,7 @@
   </div>
 </footer>
 <script src="../layout2/home.js" defer></script>
-<script src="../layout2/kakao.js?v=sms4" defer></script>
+<script src="../layout2/qrcode.min.js" defer></script>
+<script src="../layout2/kakao.js?v=sms5" defer></script>
 </body>
 </html>
