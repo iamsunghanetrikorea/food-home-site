@@ -49,7 +49,6 @@
 .kk-note a { text-decoration: underline; }
 .kk-status { min-height: 1lh; margin-top: var(--space-md); font-size: var(--text-sm); font-weight: 700; color: var(--color-ink); }
 .kk-status.is-error { color: var(--color-error); }
-/* the hand-off dialog */
 
 /* without script: every course's subjects show in turn */
 html:not(.js) .kk-panel[hidden] { display: block !important; }
