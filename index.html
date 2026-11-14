@@ -17,7 +17,7 @@
 <style>.boards{grid-template-columns:minmax(0,1fr)}</style>
 </head>
 <body>
-<!-- 첫 방문 인트로 영상: 세션당 1회, 음소거 자동재생, 건너뛰기/소리 켜기 -->
+<!-- 첫 방문 인트로 영상: 세션당 1회, 음소거 자동재생, 건너뛰기/소리 켜기/일시정지(화면 터치·스페이스바) -->
 <style>
   .intro { display: none; }
   html.js .intro { position: fixed; inset: 0; z-index: 9999; background: #0D0A09; display: flex; align-items: center; justify-content: center;
@@ -37,13 +37,19 @@
   }
   .intro__play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none; font-size: 18px; padding: 18px 32px; }
   .intro.is-blocked .intro__play { display: block; }
+  .intro video { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .intro__paused { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none; pointer-events: none;
+    width: 88px; height: 88px; border-radius: 50%; background: rgba(13, 10, 9, .62); color: #FEFDFB; font-size: 34px; line-height: 88px; text-align: center; }
+  .intro.is-paused .intro__paused { display: block; }
   .intro__prog { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: #C91114; }
   html.intro-lock, html.intro-lock body { overflow: hidden; }
 </style>
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="이화푸드조리제빵학원 소개 영상">
   <video id="intro-video" muted playsinline preload="none"></video>
   <button type="button" class="intro__btn intro__play" id="intro-play">▶ 영상 재생</button>
+  <div class="intro__paused" aria-hidden="true">▶</div>
   <div class="intro__bar">
+    <button type="button" class="intro__btn" id="intro-pause" aria-pressed="false">⏸ 일시정지</button>
     <button type="button" class="intro__btn" id="intro-sound" aria-pressed="false">🔊 소리 켜기</button>
     <button type="button" class="intro__btn intro__btn--skip" id="intro-skip">건너뛰기 ✕</button>
   </div>
@@ -62,8 +68,8 @@
   // 세로로 긴 화면(휴대폰 세로 등)은 9:16 영상, 그 외는 16:9 영상
   var tall = window.matchMedia && window.matchMedia('(max-aspect-ratio: 3/4)').matches;
   var base = 'wp-content/uploads/intro/';
-  v.poster = base + (tall ? 'intro-vertical-poster.jpg' : 'intro-poster.jpg') + '?v=welcome1';
-  v.src = base + (tall ? 'intro-vertical-720p.mp4' : 'intro-720p.mp4') + '?v=welcome1';
+  v.poster = base + (tall ? 'intro-vertical-poster.jpg' : 'intro-poster.jpg') + '?v=welcome2';
+  v.src = base + (tall ? 'intro-vertical-720p.mp4' : 'intro-720p.mp4') + '?v=welcome2';
   v.preload = 'auto';
   var snd = document.getElementById('intro-sound');
   var prog = document.getElementById('intro-prog');
@@ -76,7 +82,28 @@
     document.removeEventListener('keydown', onKey);
     setTimeout(function () { if (box.parentNode) box.parentNode.removeChild(box); }, 500);
   }
-  function onKey(e) { if (e.key === 'Escape') close(); }
+  var pauseBtn = document.getElementById('intro-pause');
+  var userPaused = false;
+  function syncPause() {
+    var p = v.paused && !v.ended;
+    box.classList.toggle('is-paused', p && !box.classList.contains('is-blocked'));
+    pauseBtn.setAttribute('aria-pressed', String(p));
+    pauseBtn.textContent = p ? '▶ 다시 재생' : '⏸ 일시정지';
+  }
+  // 화면(영상) 터치/클릭 또는 스페이스바: 일시정지 ↔ 재생
+  function togglePause() {
+    if (done) return;
+    if (v.paused) { userPaused = false; box.classList.remove('is-blocked'); start(); }
+    else { userPaused = true; v.pause(); }
+  }
+  v.addEventListener('click', togglePause);
+  pauseBtn.addEventListener('click', togglePause);
+  v.addEventListener('play', syncPause);
+  v.addEventListener('pause', syncPause);
+  function onKey(e) {
+    if (e.key === 'Escape') close();
+    else if ((e.key === ' ' || e.key === 'Spacebar') && !(e.target && e.target.tagName === 'BUTTON')) { e.preventDefault(); togglePause(); }
+  }
   function start() {
     var p = v.play();
     if (p && p.catch) p.catch(function () { box.classList.add('is-blocked'); });
@@ -87,7 +114,7 @@
     v.muted = !v.muted;
     snd.setAttribute('aria-pressed', String(!v.muted));
     snd.textContent = v.muted ? '🔊 소리 켜기' : '🔇 소리 끄기';
-    if (v.paused) start();
+    if (v.paused && !userPaused) start();
   });
   v.addEventListener('timeupdate', function () { if (v.duration) prog.style.width = (v.currentTime / v.duration * 100) + '%'; });
   v.addEventListener('ended', close);
