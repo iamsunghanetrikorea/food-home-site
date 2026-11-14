@@ -413,7 +413,8 @@ button { font: inherit; color: inherit; }
   .allmenu__col ul:empty { display: none; }
   .allmenu__contact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); padding-top: var(--space-lg); }
   .allmenu__contact .btn { justify-content: center; }
-  .allmenu__contact .btn--tel { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-white); }
+  .allmenu__contact .btn { background: transparent; color: var(--color-ink); border-color: var(--color-ink); }
+  .allmenu__contact .btn:hover { background: transparent; text-decoration: underline; }
   body:has(.allmenu[open]) { overflow: hidden; }
 }
 
