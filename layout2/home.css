@@ -573,3 +573,14 @@ button { font: inherit; color: inherit; }
   .ft__biz div { grid-template-columns: 5.5rem minmax(0, 1fr); }
   .ft__copy { grid-area: copy; margin-top: 0; }
 }
+/* 휴대폰 첫 화면: 사진·제목·설명·이전/다음 버튼이 한 화면에 들어오도록
+   사진 높이는 화면 높이에 맞춰 150~260px 사이에서 자동 조절 */
+@media (max-width: 40rem) {
+  .hero__img { height: clamp(150px, calc(100vh - 340px), 260px); }
+  @supports (height: 100svh) { .hero__img { height: clamp(150px, calc(100svh - 340px), 260px); } }
+  .hero__text { gap: var(--space-xs); padding: var(--space-sm) var(--space-lg) var(--space-xs); }
+  .hero__more { margin-bottom: 0; font-size: var(--text-sm); }
+  .hero__head { font-size: 1.75rem; line-height: 1.2; }
+  .hero__line { font-size: 1rem; line-height: 1.5; }
+  .hero__ctrl { padding-bottom: var(--space-xs); }
+}
