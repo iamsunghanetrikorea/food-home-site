@@ -16,7 +16,7 @@
 <style>.boards{grid-template-columns:minmax(0,1fr)}</style>
 </head>
 <body>
-<!-- 첫 방문 인트로 영상: 세션당 1회(새로고침하면 다시 재생), 음소거 자동재생, 건너뛰기/소리 켜기/일시정지(화면 터치·스페이스바) -->
+<!-- 첫 방문 인트로 영상: 세션당 1회(새로고침하면 다시 재생), 음소거 자동재생, 건너뛰기/소리 켜기/일시정지(화면 터치·스페이스바)/10초 뒤로(←), 재생 중 버튼 자동 숨김 -->
 <style>
   .intro { display: none; }
   html.js .intro { position: fixed; inset: 0; z-index: 9999; background: #0D0A09; display: flex; align-items: center; justify-content: center;
@@ -41,6 +41,10 @@
     width: 88px; height: 88px; border-radius: 50%; background: rgba(13, 10, 9, .62); color: #FEFDFB; font-size: 34px; line-height: 88px; text-align: center; }
   .intro.is-paused .intro__paused { display: block; }
   .intro__prog { position: absolute; left: 0; bottom: 0; height: 4px; width: 0; background: #C91114; }
+  /* 재생 중 조작이 없으면 버튼 숨김 → 마우스 이동·화면 터치·키 입력·일시정지 시 다시 표시 */
+  .intro__bar { transition: opacity .3s ease; }
+  .intro.is-idle .intro__bar { opacity: 0; pointer-events: none; }
+  .intro.is-idle video { cursor: none; }
   html.intro-lock, html.intro-lock body { overflow: hidden; }
 </style>
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="이화푸드조리제빵학원 소개 영상">
@@ -48,6 +52,7 @@
   <button type="button" class="intro__btn intro__play" id="intro-play">▶ 영상 재생</button>
   <div class="intro__paused" aria-hidden="true">▶</div>
   <div class="intro__bar">
+    <button type="button" class="intro__btn" id="intro-back" aria-label="10초 뒤로">⏪ 10초 뒤로</button>
     <button type="button" class="intro__btn" id="intro-pause" aria-pressed="false">⏸ 일시정지</button>
     <button type="button" class="intro__btn" id="intro-sound" aria-pressed="false">🔊 소리 켜기</button>
     <button type="button" class="intro__btn intro__btn--skip" id="intro-skip">건너뛰기 ✕</button>
@@ -102,12 +107,43 @@
     if (v.paused) { userPaused = false; box.classList.remove('is-blocked'); start(); }
     else { userPaused = true; v.pause(); }
   }
-  v.addEventListener('click', togglePause);
+  // 버튼 자동 숨김: 재생 중 2.5초간 조작이 없으면 숨기고, 일시정지·재생 차단 상태에선 항상 표시
+  var idleTimer = null;
+  function showControls() {
+    box.classList.remove('is-idle');
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(function () {
+      // 실제로 재생 중일 때만 숨김(로딩·버퍼링 중에는 버튼 유지)
+      if (!done && !v.paused && !v.ended && v.readyState > 2) box.classList.add('is-idle');
+    }, 2500);
+  }
+  // 터치 기기: 버튼이 숨겨진 상태의 첫 탭은 버튼만 다시 표시(일시정지하지 않음)
+  var swallowClick = false;
+  v.addEventListener('pointerdown', function (e) {
+    swallowClick = e.pointerType !== 'mouse' && box.classList.contains('is-idle');
+  });
+  v.addEventListener('click', function () {
+    if (swallowClick) { swallowClick = false; showControls(); return; }
+    togglePause();
+  });
+  box.addEventListener('mousemove', showControls);
+  box.addEventListener('pointerdown', showControls);
   pauseBtn.addEventListener('click', togglePause);
-  v.addEventListener('play', syncPause);
-  v.addEventListener('pause', syncPause);
+  v.addEventListener('play', function () { syncPause(); showControls(); });
+  v.addEventListener('playing', showControls);
+  v.addEventListener('waiting', function () { box.classList.remove('is-idle'); });
+  v.addEventListener('pause', function () { syncPause(); box.classList.remove('is-idle'); clearTimeout(idleTimer); });
+  // 뒤로가기: 10초 되감기
+  function rewind() {
+    if (done) return;
+    v.currentTime = Math.max(0, v.currentTime - 10);
+    showControls();
+  }
+  document.getElementById('intro-back').addEventListener('click', rewind);
   function onKey(e) {
+    showControls();
     if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); rewind(); }
     else if ((e.key === ' ' || e.key === 'Spacebar') && !(e.target && e.target.tagName === 'BUTTON')) { e.preventDefault(); togglePause(); }
   }
   function start() {
