@@ -515,3 +515,17 @@ button { font: inherit; color: inherit; }
 @media (max-width: 60rem) {
   .cc__qr { justify-self: stretch; width: 100%; max-width: 420px; box-sizing: border-box; }
 }
+
+/* 고객센터: 오른쪽에 교육기부 진로체험 인증 사진(3:2 비율 유지), 주소는 오시는길 버튼 옆 */
+.cc__in { grid-template-columns: auto auto 1fr auto; }
+.cc__act { grid-column: 1 / 4; align-items: center; }
+.cc__act .cc__addr { margin: 0 0 0 var(--space-xs); }
+.cc__cert { grid-column: 4; grid-row: 1 / span 2; justify-self: end; align-self: center; display: block;
+  width: clamp(240px, 24vw, 340px); height: auto; aspect-ratio: 720 / 476; object-fit: contain;
+  border-radius: 4.4% / 6.6%; box-shadow: 0 10px 30px rgba(27, 20, 18, 0.18); }
+@media (max-width: 60rem) {
+  .cc__in { grid-template-columns: minmax(0, 1fr); }
+  .cc__act { grid-column: auto; }
+  .cc__act .cc__addr { margin: var(--space-2xs) 0 0; }
+  .cc__cert { grid-column: auto; grid-row: auto; justify-self: start; width: 100%; max-width: 420px; margin-top: var(--space-sm); }
+}
