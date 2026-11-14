@@ -532,3 +532,15 @@ button { font: inherit; color: inherit; }
   .cc__act .btn { min-height: 48px; padding: 0 var(--space-xs); }
   .cc__cert { grid-column: auto; grid-row: auto; justify-self: start; width: 100%; max-width: 300px; margin-top: var(--space-xs); }
 }
+/* 고객센터 휴대폰(640px 이하): 글자와 현판을 줄여 높이를 약 절반으로.
+   왼쪽에 '고객센터 / 전화번호', 오른쪽에 작은 현판, 아래 줄에 버튼 3개 */
+@media (max-width: 40rem) {
+  .cc, .cc.cc { padding-block: var(--space-md); }
+  .cc__in { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-sm); row-gap: var(--space-2xs); align-items: center; }
+  .cc .sec__en { font-size: 1.125rem; }
+  .cc__tel { grid-column: 1; font-size: 1.75rem; line-height: 1.1; }
+  .cc__cert { grid-column: 2; grid-row: 1 / span 2; justify-self: end; width: 120px; max-width: none; margin-top: 0;
+    box-shadow: 0 4px 12px rgba(27, 20, 18, 0.18); }
+  .cc__act { grid-column: 1 / -1; grid-row: 3; justify-self: stretch; width: 100%; max-width: none; margin-top: var(--space-xs); gap: var(--space-xs); }
+  .cc__act .btn { min-height: 40px; font-size: 0.9375rem; }
+}
