@@ -139,6 +139,7 @@ button { font: inherit; color: inherit; }
 /* cards */
 .cards { display: grid; gap: var(--space-lg); }
 .cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cards--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .card a { display: grid; gap: var(--space-xs); height: 100%; padding: var(--space-lg) var(--space-lg) var(--space-xl); background: var(--color-white); box-shadow: var(--shadow-card); transition: transform var(--dur-short) var(--ease-out); }
 .card a:hover { transform: translateY(-4px); }
 .card__img { display: block; margin-bottom: var(--space-sm); aspect-ratio: 4 / 3; overflow: hidden; }
