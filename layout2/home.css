@@ -551,13 +551,13 @@ button { font: inherit; color: inherit; }
   .cc { margin-top: var(--space-xl); }
   .ft { padding-top: var(--space-md); }
 }
-/* 고객센터 박스: 검은 바탕, 흰 글자, 버튼 3개 모두 같은 흰 테두리 버튼 */
-.cc { background: var(--color-ink); color: var(--color-paper); }
-.cc :focus-visible { outline-color: #FFBE24; }
-.cc .sec__en, .cc__tel { color: var(--color-paper); }
-.cc .btn--line { background: transparent; color: var(--color-paper); border-color: var(--color-paper); }
-.cc .btn--line:hover { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-paper); }
-.cc__cert { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45); }
+/* 고객센터 박스: 밝은 노란 바탕, 검은 글자, 버튼 3개 모두 같은 검은 테두리 버튼 */
+.cc { background: #FFE14D; color: var(--color-ink); }
+.cc :focus-visible { outline-color: var(--color-ink); }
+.cc .sec__en, .cc__tel { color: var(--color-ink); }
+.cc .btn--line { background: transparent; color: var(--color-ink); border-color: var(--color-ink); }
+.cc .btn--line:hover { background: var(--color-ink); color: #FFE14D; border-color: var(--color-ink); }
+.cc__cert { box-shadow: 0 8px 22px rgba(27, 20, 18, 0.22); }
 /* 휴대폰 푸터: 저작권 문구를 위 줄(이용약관·개인정보처리방침)에 붙임 */
 @media (max-width: 60rem) {
   .ft__copy { margin-top: calc(var(--space-sm) - var(--space-lg)); }

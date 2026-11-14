@@ -1,5 +1,5 @@
 /* 전화문자 상담 page: three steps (course, subjects, contact) in the reference site's form layout. */
-@import url("./sub.css?v=cc6");
+@import url("./sub.css?v=cc7");
 
 .ph__title br { display: inline; }
 .kk { padding-block: var(--space-2xl) var(--section-gap-s); }
