@@ -346,3 +346,8 @@
   .chub__t { font-size: var(--text-md); }
 }
 .pbody:has(.page > .prose:empty) { display: none; } .page > .prose:empty { display: none; }
+
+/* 게시판 목록(데스크탑): 페이지 번호와 아래 검색줄 사이를 조금 띄움 */
+@media (min-width: 60.0625rem) {
+  .kboard-pagination + .kboard-search { margin-top: var(--space-lg); }
+}
