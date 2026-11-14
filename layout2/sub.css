@@ -108,6 +108,7 @@
 .kboard-gallery-item a { text-decoration: none; font-weight: 700; }
 .kboard-gallery-item a:hover { color: var(--color-accent); }
 .kboard-gallery-item :is(.kboard-list-user, .kboard-list-date, .kboard-list-vote, .kboard-list-view) { font-size: var(--text-sm); color: var(--color-ink-2); }
+.kboard-gallery-item .content { text-align: center; }
 
 .prose .map__link { margin-top: var(--space-sm); font-size: var(--text-sm); }
 .board :is(h2, h3) { max-width: none; margin: 0; font-size: var(--text-md); line-height: 1.4; letter-spacing: 0; }
