@@ -552,13 +552,24 @@ button { font: inherit; color: inherit; }
   .ft { padding-top: var(--space-md); }
 }
 /* 고객센터 박스: 연한 노란 바탕, 검은 글자, 버튼 3개 모두 같은 검은 테두리 버튼 */
-.cc { background: #FFF3B0; color: var(--color-ink); }
+.cc { background: #FFF9D9; color: var(--color-ink); }
 .cc :focus-visible { outline-color: var(--color-ink); }
 .cc .sec__en, .cc__tel { color: var(--color-ink); }
 .cc .btn--line { background: transparent; color: var(--color-ink); border-color: var(--color-ink); }
-.cc .btn--line:hover { background: var(--color-ink); color: #FFF3B0; border-color: var(--color-ink); }
+.cc .btn--line:hover { background: var(--color-ink); color: #FFF9D9; border-color: var(--color-ink); }
 .cc__cert { box-shadow: 0 8px 22px rgba(27, 20, 18, 0.22); }
 /* 휴대폰 푸터: 저작권 문구를 위 줄(이용약관·개인정보처리방침)에 붙임 */
 @media (max-width: 60rem) {
   .ft__copy { margin-top: calc(var(--space-sm) - var(--space-lg)); }
+}
+/* 휴대폰 푸터 높이 약 2/3: 로고와 이용약관·개인정보처리방침을 한 줄에, 사업자 정보 줄 간격 축소 */
+@media (max-width: 60rem) {
+  .ft { padding-block: var(--space-md) var(--space-md); }
+  .ft__in { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "logo links" "biz biz" "copy copy"; align-items: center; gap: var(--space-xs) var(--space-sm); }
+  .ft__info img { grid-area: logo; width: 130px; }
+  .ft__links { grid-area: links; padding-top: 0; border-top: 0; gap: 0 var(--space-sm); font-size: var(--text-xs); }
+  .ft__links a { min-height: 32px; }
+  .ft__biz { grid-area: biz; gap: 0; padding-top: var(--space-xs); border-top: 1px solid var(--color-rule); font-size: var(--text-xs); line-height: 1.6; }
+  .ft__biz div { grid-template-columns: 5.5rem minmax(0, 1fr); }
+  .ft__copy { grid-area: copy; margin-top: 0; }
 }

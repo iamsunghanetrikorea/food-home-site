@@ -1,6 +1,6 @@
 /* Layout 2 sub-pages: the reference site's sub-page frame (centred English title, Korean title,
    breadcrumb, sibling tabs, content on a tinted band), in the academy's brand. */
-@import url("./home.css?v=cc8");
+@import url("./home.css?v=cc9");
 
 /* page head */
 .ph { padding-block: 72px 0; background: var(--color-white); text-align: center; }
