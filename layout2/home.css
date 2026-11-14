@@ -544,3 +544,10 @@ button { font: inherit; color: inherit; }
   .cc__act { grid-column: 1 / -1; grid-row: 3; justify-self: stretch; width: 100%; max-width: none; margin-top: var(--space-xs); gap: var(--space-xs); }
   .cc__act .btn { min-height: 40px; font-size: 0.9375rem; }
 }
+/* 간격 축소: 위 블록(취업보도실) ↔ 고객센터, 고객센터 ↔ 아래 푸터 */
+.cc { margin-top: var(--space-2xl); }
+.ft { padding-top: var(--space-lg); }
+@media (max-width: 60rem) {
+  .cc { margin-top: var(--space-xl); }
+  .ft { padding-top: var(--space-md); }
+}
