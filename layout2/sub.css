@@ -1,6 +1,6 @@
 /* Layout 2 sub-pages: the reference site's sub-page frame (centred English title, Korean title,
    breadcrumb, sibling tabs, content on a tinted band), in the academy's brand. */
-@import url("./home.css?v=cc2");
+@import url("./home.css?v=cc3");
 
 /* page head */
 .ph { padding-block: 72px 0; background: var(--color-white); text-align: center; }
@@ -218,7 +218,7 @@
   .prose { gap: var(--space-lg); }
   .prose h2 { margin-top: var(--space-xl); margin-bottom: var(--space-sm); font-size: var(--text-xl); }
   .prose h3 { margin-top: var(--space-lg); }
-  .cc { padding-block: var(--space-2xl); }
+  .cc { padding-block: var(--space-lg); }
   .cc__in { gap: var(--space-sm); }
 }
 
@@ -253,7 +253,7 @@
   .prose th { width: 6.5rem; }
   .prose .tour .con { gap: var(--space-lg); }
   .board .kboard-pagination { margin-top: var(--space-md); }
-  .cc { padding-block: var(--space-xl); }
+  .cc { padding-block: var(--space-lg); }
   .kk { padding-block: var(--space-md) var(--space-lg); }
   .kk-steps { gap: var(--space-2xs); padding-bottom: var(--space-md); }
   .kk-steps b { font-size: 2rem; width: 2rem; }

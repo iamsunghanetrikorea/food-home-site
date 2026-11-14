@@ -516,16 +516,19 @@ button { font: inherit; color: inherit; }
   .cc__qr { justify-self: stretch; width: 100%; max-width: 420px; box-sizing: border-box; }
 }
 
-/* 고객센터: 오른쪽에 교육기부 진로체험 인증 사진(3:2 비율 유지), 주소는 오시는길 버튼 옆 */
-.cc__in { grid-template-columns: auto auto 1fr auto; }
-.cc__act { grid-column: 1 / 4; align-items: center; }
-.cc__act .cc__addr { margin: 0 0 0 var(--space-xs); }
+/* 고객센터: 높이를 줄인 한 덩어리. 왼쪽 위 '고객센터 + 전화번호', 그 아래 같은 폭으로 전화상담·문자상담·오시는길 3등분,
+   오른쪽에 교육기부 진로체험 인증 현판(비율 유지) */
+.cc { padding-block: var(--space-xl); }
+.cc__in { grid-template-columns: auto auto 1fr auto; gap: var(--space-md) var(--space-2xl); }
+.cc__act { grid-column: 1 / 3; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); }
+.cc__act .btn { justify-content: center; }
 .cc__cert { grid-column: 4; grid-row: 1 / span 2; justify-self: end; align-self: center; display: block;
-  width: clamp(240px, 24vw, 340px); height: auto; aspect-ratio: 720 / 474; object-fit: contain;
+  width: clamp(200px, 18vw, 260px); height: auto; aspect-ratio: 720 / 474; object-fit: contain;
   border-radius: 2.2% / 3.4%; box-shadow: 0 10px 30px rgba(27, 20, 18, 0.18); }
 @media (max-width: 60rem) {
-  .cc__in { grid-template-columns: minmax(0, 1fr); }
-  .cc__act { grid-column: auto; }
-  .cc__act .cc__addr { margin: var(--space-2xs) 0 0; }
-  .cc__cert { grid-column: auto; grid-row: auto; justify-self: start; width: 100%; max-width: 420px; margin-top: var(--space-sm); }
+  .cc { padding-block: var(--space-lg); }
+  .cc__in { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+  .cc__act { grid-column: auto; flex-direction: initial; max-width: 420px; margin-top: var(--space-2xs); gap: var(--space-xs); }
+  .cc__act .btn { min-height: 48px; padding: 0 var(--space-xs); }
+  .cc__cert { grid-column: auto; grid-row: auto; justify-self: start; width: 100%; max-width: 300px; margin-top: var(--space-xs); }
 }

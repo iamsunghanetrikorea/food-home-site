@@ -1,5 +1,5 @@
 /* 개강일정: the course schedule as tables (cards on phones). */
-@import url("./sub.css?v=cc2");
+@import url("./sub.css?v=cc3");
 
 .sc { display: grid; gap: var(--space-2xl); padding: var(--space-xl); background: var(--color-white); box-shadow: var(--shadow-card); }
 .sc-jump ul { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
