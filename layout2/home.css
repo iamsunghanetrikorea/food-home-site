@@ -521,8 +521,8 @@ button { font: inherit; color: inherit; }
 .cc__act { grid-column: 1 / 4; align-items: center; }
 .cc__act .cc__addr { margin: 0 0 0 var(--space-xs); }
 .cc__cert { grid-column: 4; grid-row: 1 / span 2; justify-self: end; align-self: center; display: block;
-  width: clamp(240px, 24vw, 340px); height: auto; aspect-ratio: 720 / 476; object-fit: contain;
-  border-radius: 4.4% / 6.6%; box-shadow: 0 10px 30px rgba(27, 20, 18, 0.18); }
+  width: clamp(240px, 24vw, 340px); height: auto; aspect-ratio: 720 / 474; object-fit: contain;
+  border-radius: 2.2% / 3.4%; box-shadow: 0 10px 30px rgba(27, 20, 18, 0.18); }
 @media (max-width: 60rem) {
   .cc__in { grid-template-columns: minmax(0, 1fr); }
   .cc__act { grid-column: auto; }
