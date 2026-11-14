@@ -1,5 +1,5 @@
 /* Board post (detail) pages. */
-@import url("./sub.css?v=cc7");
+@import url("./sub.css?v=cc8");
 
 .post { display: grid; gap: var(--space-xl); padding: var(--space-2xl); background: var(--color-white); box-shadow: var(--shadow-card); }
 .post__head { display: grid; gap: var(--space-sm); padding-bottom: var(--space-lg); border-bottom: 2px solid var(--color-ink); }
