@@ -17,7 +17,7 @@
 <style>.boards{grid-template-columns:minmax(0,1fr)}</style>
 </head>
 <body>
-<!-- 첫 방문 인트로 영상: 세션당 1회, 음소거 자동재생, 건너뛰기/소리 켜기/일시정지(화면 터치·스페이스바) -->
+<!-- 첫 방문 인트로 영상: 세션당 1회(새로고침하면 다시 재생), 음소거 자동재생, 건너뛰기/소리 켜기/일시정지(화면 터치·스페이스바) -->
 <style>
   .intro { display: none; }
   html.js .intro { position: fixed; inset: 0; z-index: 9999; background: #0D0A09; display: flex; align-items: center; justify-content: center;
@@ -60,6 +60,13 @@
   var box = document.getElementById('intro');
   var seen = false;
   try { seen = sessionStorage.getItem('dj-intro-seen') === '1'; } catch (e) {}
+  // 새로고침(F5, 당겨서 새로고침 등)이면 이미 봤어도 다시 재생
+  var reload = false;
+  try {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    reload = nav ? nav.type === 'reload' : (performance.navigation && performance.navigation.type === 1);
+  } catch (e) {}
+  if (reload) seen = false;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (seen || reduce) { box.parentNode.removeChild(box); return; }
   try { sessionStorage.setItem('dj-intro-seen', '1'); } catch (e) {}
