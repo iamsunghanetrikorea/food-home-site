@@ -147,6 +147,7 @@ button { font: inherit; color: inherit; }
 .card__t { font-size: var(--text-lg); font-weight: 700; line-height: 1.4; }
 .card__s { font-size: var(--text-sm); color: var(--color-ink-2); }
 .card a:hover .card__t { color: var(--color-accent); }
+#photo-rail .card__t { text-align: center; }
 
 /* rails (horizontal carousels) */
 .rail { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 2 * var(--space-lg)) / 3); gap: var(--space-lg); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: var(--space-md); }
